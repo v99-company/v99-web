@@ -38,7 +38,7 @@ export default function LandingPage() {
 
 
   return (
-    <div className="flex flex-col min-h-screen">
+    <div className="flex flex-col min-h-screen ">
       <header className="px-4 lg:px-6 h-14 flex items-center fixed w-full bg-white backdrop-blur-sm z-50">
         <Link className="flex items-center justify-center" href="#">
           <span className="sr-only">v99.in</span>
@@ -54,7 +54,7 @@ export default function LandingPage() {
         </nav>
       </header>
       <main className="flex-1">
-        <section className="relative w-full py-12 md:py-24 lg:py-32 xl:py-48 overflow-hidden">
+        <section className="relative w-full py-12 md:py-24 lg:py-32 xl:py-48 overflow-hidden my-8 md:my-2">
           <video
             autoPlay
             loop
@@ -68,7 +68,7 @@ export default function LandingPage() {
           {/* Overlay */}
           <div className="absolute top-0 left-0 w-full h-full bg-black bg-opacity-70 z-10"></div>
 
-          <div className="container px-4 md:px-6 relative z-20">
+          <div className="container px-4 md:px-6 relative z-20 flex flex-col items-center">
             <div className="flex flex-col items-center space-y-4 text-center text-white">
               <motion.div
                 initial={{ opacity: 0, y: 20 }}
