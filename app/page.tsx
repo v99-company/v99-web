@@ -39,7 +39,7 @@ export default function LandingPage() {
 
   return (
     <div className="flex flex-col min-h-screen">
-      <header className="px-4 lg:px-6 h-14 flex items-center fixed w-full bg-white/80 backdrop-blur-sm z-50">
+      <header className="px-4 lg:px-6 h-14 flex items-center fixed w-full bg-white backdrop-blur-sm z-50">
         <Link className="flex items-center justify-center" href="#">
           <span className="sr-only">v99.in</span>
           <span className="font-bold text-2xl">v99.in</span>
