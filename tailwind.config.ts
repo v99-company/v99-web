@@ -10,6 +10,10 @@ export default {
   theme: {
   	extend: {
   		colors: {
+			red: {
+				850: '#800000', // Maroon-like custom shade
+				950: '#4F0000', // Darker maroon shade
+			  },
 			main: 'var(--main)',
   			background: 'hsl(var(--background))',
   			foreground: 'hsl(var(--foreground))',

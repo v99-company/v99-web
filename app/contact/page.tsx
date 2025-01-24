@@ -52,29 +52,29 @@ const page = () => {
 
   return (
     <div>
- <Navbar bgColor='bg-teal-800'/>
+ <Navbar bgColor='bg-white'/>
     <div className="p-5 mt-8">
       <Card className="shadow-lg">
         <div className="grid grid-cols-1 md:grid-cols-2 divide-y md:divide-y-0 md:divide-x divide-gray-300">
           {/* Contact Us Section */}
           <div className="p-8">
             <CardHeader>
-              <CardTitle className="text-3xl font-bold text-center text-teal-800">Contact Us</CardTitle>
+              <CardTitle className="text-3xl font-bold text-center text-red-800">Contact Us</CardTitle>
             </CardHeader>
             <CardContent>
-              <p className="text-lg text-teal-800 mb-6">
+              <p className="text-lg text-red-800 mb-6">
                 Get in touch with us today to learn more about V99 and make your own online business page.
               </p>
               <div className="space-y-4 mb-8">
                 <div className="flex items-center space-x-4">
-                  <Phone className="w-6 h-6 text-teal-800" />
-                  <span className="text-teal-800">{companyInfo.phone}</span>
+                  <Phone className="w-6 h-6 text-red-800" />
+                  <span className="text-red-800">{companyInfo.phone}</span>
                 </div>
                 <div className="flex items-center space-x-4">
-                  <Mail className="w-6 h-6 text-teal-800" />
-                  <span className="text-teal-800">{companyInfo.email}</span>
+                  <Mail className="w-6 h-6 text-red-800" />
+                  <span className="text-red-800">{companyInfo.email}</span>
                 </div>
-                <p className="flex items-start text-teal-800 ">
+                <p className="flex items-start text-red-800 ">
                     <span className="flex items-start mr-2 font-semibold">
                       <MapPin className="h-6 w-6 mt-1" />
                     </span>
@@ -101,25 +101,25 @@ const page = () => {
 
           {/* Get in Touch Section */}
           <div className="p-8 bg-gray-50">
-            <h2 className="text-2xl font-semibold mb-4 text-teal-800">Get in Touch</h2>
+            <h2 className="text-2xl font-semibold mb-4 text-red-800">Get in Touch</h2>
             <form className="space-y-4">
               <div>
                 <label htmlFor="name" className="block mb-1 text-gray-700">Name</label>
-                <input type="text" id="name" name="name" className="w-full px-3 py-2 border rounded focus:outline-none focus:ring-2 focus:ring-teal-600" required />
+                <input type="text" id="name" name="name" className="w-full px-3 py-2 border rounded focus:outline-none focus:ring-2 focus:ring-red-600" required />
               </div>
               <div>
                 <label htmlFor="email" className="block mb-1 text-gray-700">Email</label>
-                <input type="email" id="email" name="email" className="w-full px-3 py-2 border rounded focus:outline-none focus:ring-2 focus:ring-teal-600" required />
+                <input type="email" id="email" name="email" className="w-full px-3 py-2 border rounded focus:outline-none focus:ring-2 focus:ring-red-600" required />
               </div>
               <div>
                 <label htmlFor="phone" className="block mb-1 text-gray-700">Phone</label>
-                <input type="tel" id="phone" name="phone" className="w-full px-3 py-2 border rounded focus:outline-none focus:ring-2 focus:ring-teal-600" required />
+                <input type="tel" id="phone" name="phone" className="w-full px-3 py-2 border rounded focus:outline-none focus:ring-2 focus:ring-red-600" required />
               </div>
               <div>
                 <label htmlFor="message" className="block mb-1 text-gray-700">Message</label>
-                <textarea id="message" name="message" rows={4} className="w-full px-3 py-2 border rounded focus:outline-none focus:ring-2 focus:ring-teal-600" required></textarea>
+                <textarea id="message" name="message" rows={4} className="w-full px-3 py-2 border rounded focus:outline-none focus:ring-2 focus:ring-red-600" required></textarea>
               </div>
-              <button type="submit" className="bg-teal-600 text-white px-6 py-3 rounded-lg transition duration-300 ease-in-out hover:bg-gray-700">
+              <button type="submit" className="bg-red-600 text-white px-6 py-3 rounded-lg transition duration-300 ease-in-out hover:bg-gray-700">
                 Send Message
               </button>
             </form>
@@ -128,7 +128,7 @@ const page = () => {
       </Card>
     </div>
     <Card className="p-8 bg-gray-50">
-          <h2 className="text-3xl font-bold text-center mb-8 text-teal-800 !important">Our Locations</h2>
+          <h2 className="text-3xl font-bold text-center mb-8 text-red-800 !important">Our Locations</h2>
           <div className="grid grid-cols-1 md:grid-cols-2 gap-6">
             {locations.map((location, index) => (
               <LocationCard key={index} {...location} />

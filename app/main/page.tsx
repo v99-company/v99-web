@@ -68,7 +68,7 @@ export default function Home() {
         {/* Hero Section */}
         <div className="relative z-10 flex items-center justify-between flex-col min-h-96 w-full ">
           {/* Navbar */}
-          <div className="w-full"> 
+          <div className="w-full bg-white"> 
           <Navbar />
           </div>
 
@@ -80,56 +80,57 @@ export default function Home() {
         </div>
       </div>
       <motion.div
-        initial={{ opacity: 0, y: 50 }}
-        animate={{ opacity: 1, y: 0 }}
-        transition={{ duration: 1, delay: 0.5 }}
-        className="mt-12 grid grid-cols-1 sm:grid-cols-2 md:grid-cols-3 gap-8 w-full max-w-6xl mx-auto py-4 "
-      >
-        {[
-          {
-            title: "Happy Customers",
-            count: 1000,
-            icon: "😊",
-          },
-          {
-            title: "Verified Businesses",
-            count: 500,
-            icon: "🏢",
-          },
-          {
-            title: "Areas Covered",
-            count: 20,
-            icon: "🌍",
-          },
-        ].map((item, index) => (
-            <motion.div 
-            key={index}
-            initial={{ opacity: 0, scale: 0.8 }}
-            animate={{ opacity: 1, scale: 1 }}
-            transition={{ delay: 0.3 * index, duration: 0.5 }}
-            whileHover={{ scale: 1.1, transition: { duration: 0.2 } }} // Smoother and larger scale on hover
-            className="bg-white py-4 rounded-lg shadow-md flex flex-col items-center backdrop-blur-sm mx-8 cursor-pointer"
+          initial={{ opacity: 0, y: 50 }}
+          animate={{ opacity: 1, y: 0 }}
+          transition={{ duration: 1, delay: 0.5 }}
+          className="mt-12 flex flex-wrap gap-4 justify-center w-full max-w-6xl mx-auto py-4 px-2 text-red-850"
         >
-            <motion.span
-                className="text-3xl mb-2"
+          {[
+            {
+              title: "Happy Customers",
+              count: 1000,
+              icon: "😊",
+            },
+            {
+              title: "Verified Businesses",
+              count: 500,
+              icon: "🏢",
+            },
+            {
+              title: "Areas Covered",
+              count: 20,
+              icon: "🌍",
+            },
+          ].map((item, index) => (
+            <motion.div
+              key={index}
+              initial={{ opacity: 0, scale: 0.8 }}
+              animate={{ opacity: 1, scale: 1 }}
+              transition={{ delay: 0.3 * index, duration: 0.5 }}
+              whileHover={{ scale: 1.1, transition: { duration: 0.2 } }} // Smoother and larger scale on hover
+              className="flex flex-col items-center bg-white py-2 px-4 rounded-lg shadow-md backdrop-blur-sm cursor-pointer w-[120px] sm:w-[160px] md:w-[200px]"
+            >
+              <motion.span
+                className="text-2xl sm:text-3xl mb-2"
                 initial={{ rotateY: 0 }}
                 animate={{ rotateY: 360 }}
                 transition={{ duration: 2, delay: 1 + 0.2 * index, ease: "easeInOut" }}
-            >
+              >
                 {item.icon}
-            </motion.span>
-            <motion.h2
-                className="text-xl font-bold"
+              </motion.span>
+              <motion.h2
+                className="text-lg sm:text-xl font-bold"
                 initial={{ opacity: 0 }}
                 animate={{ opacity: 1 }}
                 transition={{ duration: 1, delay: 1.5 + 0.2 * index }}
-            >
+              >
                 {item.count}+
-            </motion.h2>
-            <p className="text-sm">{item.title}</p>
+              </motion.h2>
+              <p className="text-center text-xs sm:text-sm">{item.title}</p>
+            </motion.div>
+          ))}
         </motion.div>
-        ))}
-      </motion.div>
+
 
       {/* List Section */}
       <ClientList searchTerm={searchTerm} />

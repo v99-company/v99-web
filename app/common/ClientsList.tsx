@@ -69,7 +69,7 @@ export default function ClientList({ searchTerm }: ClientListProps) {
     <main className="flex-1">
       <div className="relative z-10 min-h-screen">
         <div className="max-w-7xl mx-auto py-12 px-4 sm:px-6 lg:px-8">
-          <h2 className="text-2xl font-bold text-gray-900 mb-4">
+          <h2 className="text-2xl font-bold text-gray-700 mb-4">
             Recently Added Businesses
           </h2>
           {isLoading ? (

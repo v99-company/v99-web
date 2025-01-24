@@ -18,6 +18,9 @@ import { IMAGE_FILES_URL } from '../utils/strings'
 import ShareButton from '../admin/common/ShareButton'
 import DetailPageSkeleton from './DetailPageSkeleton'
 import { Client } from '../utils/interfaces'
+import ClientOffers from '../common/ClientOffers'
+import { FontAwesomeIcon } from '@fortawesome/react-fontawesome'
+import { faWhatsapp } from '@fortawesome/free-brands-svg-icons'
 
 export default function DetailsPage() {
   const params = useParams()
@@ -54,7 +57,7 @@ export default function DetailsPage() {
 
   return (
     <div className="min-h-screen bg-gray-100">
-      <div className='bg-teal-900'>
+      <div className='bg-white'>
         <Navbar />
       </div>
       {!item ? <DetailPageSkeleton /> : 
@@ -77,36 +80,39 @@ export default function DetailsPage() {
           <div className="flex flex-col md:flex-row">
             {/* First Column */}
             <div className="w-full md:w-2/3 p-8">
+
+
               <div className="prose max-w-none">
                 <h2 className="text-2xl font-semibold mb-4">About Us</h2>
                 <p className="text-gray-600 mb-6">{item.full_description}</p>
-
               </div>
-
+              <div id='offers'>
+                <ClientOffers offers={item.offers} />
+              </div>
               <div className="bg-gray-50 p-6 rounded-lg mb-6">
                 <h2 className="text-2xl font-semibold mb-4">Contact Information</h2>
                 <div className="space-y-4">
                   <p className="flex items-center text-black">
-                    <Building className="mr-2  text-teal-600" />{item.company_name}</p>
+                    <Building className="mr-2  text-red-600" />{item.company_name}</p>
                   <p className="flex items-center text-black">
-                    <User className="mr-2 text-teal-600" />{item.contact_person}</p>
+                    <User className="mr-2 text-red-600" />{item.contact_person}</p>
                   <p className="flex items-start text-gray-700 ">
                     <span className="flex items-start mr-2 text-gray-400 font-semibold">
-                      <MapPin className="h-6 w-6 mt-1  text-teal-600" />
+                      <MapPin className="h-6 w-6 mt-1  text-red-600" />
                     </span>
                     <span className="flex flex-col text-black">
                       {item.address} - {item.pincode}
                     </span>
                   </p>
-                  <p className="flex items-center text-black"><Mail className="mr-2  text-teal-600" /> {item.email}</p>
-                  <p className="flex items-center text-black"><Phone className="mr-2  text-teal-600" /> {item.mobile_number}</p>
+                  <p className="flex items-center text-black"><Mail className="mr-2  text-red-600" /> {item.email}</p>
+                  <p className="flex items-center text-black"><Phone className="mr-2  text-red-600" /> {item.mobile_number}</p>
                   {/* <p className="flex items-center"><div className="mr-2 text-gray-400" /> {item.} (Alternate)</p> */}
                 </div>
               </div>
 
               {/* Image Gallery */}
               <div className="mt-8">
-                <h2 className="text-2xl font-semibold mb-4">Gallery</h2>
+                <h2 className="text-2xl font-semibold mb-4 text-red-800">Gallery</h2>
                 <div className="grid grid-cols-2 md:grid-cols-4 gap-4">
                   {item.images.map((img, index) => (
                     <Image
@@ -157,10 +163,10 @@ export default function DetailsPage() {
                     <Facebook className="text-blue-600 cursor-pointer hover:text-blue-800 transition-colors duration-300" />
                 </Link>}
                 {item?.twitter && <Link href={item?.twitter} target="_blank" rel="noopener noreferrer">
-                    <Twitter className="text-teal-600 cursor-pointer hover:text-blue-600 transition-colors duration-300" />
+                    <Twitter className="text-red-600 cursor-pointer hover:text-blue-600 transition-colors duration-300" />
                 </Link>}
             </div>
-                <div className='flex flex-col gap-4'>
+                {/* <div className='flex flex-col gap-4'>
                 <Link href={`tel:${item?.mobile_number}`} target="_blank" rel="noopener noreferrer">
                   <Button className="w-full bg-blue-600 hover:bg-blue-300">
                     <PhoneCall className="mr-2 h-4 w-4" /> Call Now
@@ -172,6 +178,31 @@ export default function DetailsPage() {
                   </Button>
                 </Link>
                 <ShareButton id={`${item.id}`} />
+                </div> */}
+
+                <div className='flex flex-col gap-4'>
+                  {item?.mobile_number && (
+                    <Link href={`tel:${item?.mobile_number}`} 
+                      target="_blank"
+                      rel="noopener noreferrer"
+                      className="flex items-center justify-center bg-blue-600 text-white rounded-full px-4 py-2 font-semibold hover:bg-blue-500 transition-colors mx-2 lg:mx-8"
+                    >
+                      <PhoneCall className="mr-2 h-5 w-5" />
+                      <span>{item.mobile_number}</span>
+                    </Link>
+                  )}
+                  {item?.whatsapp && (
+                    <Link href={`https://wa.me/${item.whatsapp}`} target='_blank'
+                      rel="noopener noreferrer"
+                      className="flex items-center justify-center bg-green-500 text-white rounded-full px-4 py-2 font-semibold hover:bg-green-400 transition-colors mx-2 lg:mx-8"
+                    >
+                      <FontAwesomeIcon icon={faWhatsapp} className="mr-2 h-5 w-5" />
+                      <span>{item.whatsapp}</span>
+                    </Link>
+                  )}
+                  <div className='mx-2 lg:mx-8 col-span1 md:col-span-2 lg:col-span-1'>
+                    <ShareButton id={`${item.id}`} className='rounded-full px-4 py-2 font-semibold' />
+                  </div>
                 </div>
                 
 
@@ -179,7 +210,7 @@ export default function DetailsPage() {
                   <div>
                     {item.yt_video &&
                       <div className="my-6">
-                        <h3 className="text-xl font-semibold mb-2">Watch Our Video</h3>
+                        <h3 className="text-xl font-semibold mb-2 text-red-800">Watch Our Video</h3>
                         <div className="relative pb-[56.25%] h-0">
                           <iframe
                             className="absolute top-0 left-0 w-full h-full rounded-lg"
@@ -196,7 +227,7 @@ export default function DetailsPage() {
                 )}
 
                 <div className="mb-6">
-                  <h3 className="text-xl font-semibold mb-2">Find Us</h3>
+                  <h3 className="text-xl font-semibold mb-2 text-red-800">Find Us</h3>
                   <div className="relative pb-[56.25%] h-0">
                     <iframe
                       className="absolute top-0 left-0 w-full h-full rounded-lg"

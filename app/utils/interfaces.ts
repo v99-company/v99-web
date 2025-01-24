@@ -1,3 +1,14 @@
+export interface Offer {
+    id: number;
+    client_id: number;
+    offer_title: string;
+    offer_description: string;
+    offer_type: "announcement" | "discount" | "notice";
+    start_date: string;
+    end_date: string;
+    created_at: string;
+    updated_at: string;
+  }
 export interface Client {
     id: number;
     email: string;
@@ -12,6 +23,7 @@ export interface Client {
     mobile_number: string;
     whatsapp: string;
     gmap: string;
+    offers: Offer[];
     yt_video: string;
     logo: string;
     images: string[];

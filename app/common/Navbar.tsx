@@ -15,24 +15,24 @@ export default function Navbar({ bgColor = "bg-transparent" }) {
   };
 
   return (
-    <nav className={`px-2 md:px-16 lg:px-32  ${bgColor}`}>
-      <div className=" w-full px-4 sm:px-6 lg:px-8">
+    <nav className={`px-2 md:px-8 lg:px-32  ${bgColor}`}>
+      <div className="w-full px-4 sm:px-6 lg:px-8">
         <div className="flex w-full items-center justify-between h-16">
         <Link href={"/"}>
           <div className="flex items-center">
             <Image
-              src="/favicon.ico"
+              src="/fav.png"
               alt="Logo"
               width={50}
               height={50}
               className="mr-2 rounded-md"
             />
-            <div className="text-xl font-bold text-white cursor-pointer">V99</div>
+            <div className="text-xl font-bold text-red-900 cursor-pointer">V99</div>
           </div>
           </Link>
           <div className="hidden md:block">
-            <div className="ml-10 flex items-baseline space-x-4 font-semibold text-white text-lg">
-              {/* <Link href="/" onClick={handleLinkClick} className="text-teal-300 hover:underline px-3 py-2 rounded-md text-sm font-medium">Home</Link> */}
+            <div className="ml-10 flex items-baseline space-x-4 font-semibold text-red-900 text-lg">
+              {/* <Link href="/" onClick={handleLinkClick} className="text-red-300 hover:underline px-3 py-2 rounded-md text-sm font-medium">Home</Link> */}
               <Link href="/add-business" onClick={handleLinkClick} className="hover:underline px-3 py-2 rounded-md">Add Your Business</Link>
               <Link href="/about" onClick={handleLinkClick} className=" hover:underline px-3 py-2 rounded-md ">About</Link>
               <Link href="/contact" onClick={handleLinkClick} className=" hover:underline px-3 py-2 rounded-md ">Contact</Link>
@@ -57,11 +57,12 @@ export default function Navbar({ bgColor = "bg-transparent" }) {
         </div>
       </div>
       {isOpen && (
-        <div className="md:hidden w-full flex items-center justify-end" id="mobile-menu">
-          <div className="px-2 pt-2 pb-3 space-y-1 sm:px-3 font-semibold">
-            <Link href="/add-business" onClick={handleLinkClick} className="text-teal-300 hover:underline block px-3 py-2 rounded-md text-base ">Add your business</Link>
-            <Link href="/about" onClick={handleLinkClick} className="text-teal-300 hover:underline block px-3 py-2 rounded-md text-base ">About Us</Link>
-            {/* <Link href="/" onClick={handleLinkClick} className="text-teal-300 hover:underline block px-3 py-2 rounded-md text-base font-medium">Home</Link> */}
+        <div className="md:hidden w-full flex items-center justify-center" id="mobile-menu">
+          <div className="flex items-center justify-center px-2 pt-2 pb-3 space-y-1 sm:px-3 font-semibold text-red-900">
+            <Link href="/add-business" onClick={handleLinkClick} className="hover:underline block px-3 py-2 rounded-md text-base ">Add your business</Link>
+            <Link href="/about" onClick={handleLinkClick} className="hover:underline block px-3 py-2 rounded-md text-base ">About</Link>
+            <Link href="/contact" onClick={handleLinkClick} className="hover:underline block px-3 py-2 rounded-md text-base ">Contact</Link>
+            {/* <Link href="/" onClick={handleLinkClick} className="text-red-300 hover:underline block px-3 py-2 rounded-md text-base font-medium">Home</Link> */}
           </div>
         </div>
       )}
