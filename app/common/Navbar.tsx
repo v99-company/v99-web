@@ -34,7 +34,7 @@ export default function Navbar({ bgColor = "bg-white", showSearch = false }) {
 
         {/* Navigation links - visible on larger screens when not searching */}
         {!showSearch && (
-          <div className="hidden md:flex items-center space-x-4 font-semibold text-red-900 text-lg">
+          <div className="hidden md:flex items-center space-x-4 font-semibold text-white text-lg">
             {/* <Link href="/add-business" className="hover:underline px-3 rounded-md"> */}
             <Link href="/contact" className="hover:underline px-3 rounded-md">
               Add Your Business
@@ -79,7 +79,7 @@ export default function Navbar({ bgColor = "bg-white", showSearch = false }) {
       {/* Mobile menu - visible on smaller screens when open and not searching */}
       {isOpen && !showSearch && (
         <div className="md:hidden mt-4" id="mobile-menu">
-          <div className="flex flex-col items-center space-y-2 font-semibold text-red-900">
+          <div className="flex flex-col items-center space-y-2 font-semibold text-white">
             <Link
               // href="/add-business"
               href="/contact"

@@ -68,7 +68,7 @@ export default function Home() {
 
   return (
     <Suspense fallback={<div>Loading...</div>}>
-    <main className="bg-slate-200">
+    <main className="bg-slate-200">     
       <div className="relative text-white flex-col items-center justify-center">
         {/* Video Background */}
         <div className="absolute inset-0 w-full h-full overflow-hidden">
@@ -90,9 +90,9 @@ export default function Home() {
         {/* Hero Section */}
         <div className="relative z-10 flex items-center justify-between flex-col min-h-96 w-full ">
           {/* Navbar */}
-          <div className="w-full bg-white/10"> 
-          <Navbar />
-          </div>
+        <div className="w-full"> 
+          <Navbar bgColor="bg-transparent" />
+        </div>
 
           {/* Hero Content */}
           <Hero handleFilterChange={handleFilterChange} />         

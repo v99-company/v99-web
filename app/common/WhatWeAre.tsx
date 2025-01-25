@@ -6,7 +6,7 @@ const WhatWeAre = () => {
     <section>
       {/* Heading */}
       <div className="w-full text-center py-4">
-        <h2 className="text-xl md:text-2xl font-bold text-gray-700 ml-16">What We Are</h2>
+        <h2 className="text-xl md:text-2xl font-bold text-gray-700">What We Are</h2>
       </div>
 
       {/* Scrolling Slogans Section */}
