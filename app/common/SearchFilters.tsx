@@ -5,10 +5,11 @@ import { Input } from "@/components/ui/input"
 import { Button } from "@/components/ui/button"
 
 interface SearchFiltersProps {
-    onFilterChange: (searchTerm: string) => void
+    onFilterChange: (searchTerm: string) => void;
+    placeholder?: string;
 }
   
-const SearchFilters = ({ onFilterChange }: SearchFiltersProps) => {
+const SearchFilters = ({ onFilterChange, placeholder="Search businesses and service providers nearby..." }: SearchFiltersProps) => {
 const [searchTerm, setSearchTerm] = useState("")
 
 const handleSearch = () => {
@@ -20,7 +21,7 @@ return (
     <div className="relative w-full mx-16">
         <Input
             type="text"
-            placeholder="Search businesses and service providers nearby..."
+            placeholder={placeholder}
             className="w-full text-black px-4 py-3 border border-gray-300 rounded-xl pl-4 pr-12"
             value={searchTerm}
             onChange={(e) => setSearchTerm(e.target.value)}

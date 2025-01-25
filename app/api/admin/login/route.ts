@@ -2,7 +2,7 @@ import { NextResponse } from 'next/server';
 import { SignJWT } from 'jose';
 
 const getUser = async (username: string, password: string) => {
-  const apiUrl = 'https://backend.mortuarybox.com/api/admin/login.php';
+  const apiUrl = 'https://backend.v99.in/api/admin/login.php';
   
   // Make a POST request to the external API
   const response = await fetch(apiUrl, {

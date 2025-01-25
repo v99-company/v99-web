@@ -18,7 +18,7 @@ const page = () => {
 
   const locations = [
     {
-      src: "https://www.google.com/maps/embed?pb=!1m18!1m12!1m3!1d3913.3139680325974!2d78.46469701477557!3d17.31979141309881!2m3!1f0!2f0!3f0!3m2!1i1024!2i768!4f13.1!3m3!1m2!1s0x3bcbbd4e52462f2b%3A0xc8ff7db57d31720b!2sMortuary%20Dead%20Body%20Freezer%20Box%20Manufacturers!5e0!3m2!1sen!2sin!4v1600000000000",
+      src: "https://www.google.com/maps/embed?pb=!1m18!1m12!1m3!1d3808.903509244322!2d78.46392807580204!3d17.320204104735875!2m3!1f0!2f0!3f0!3m2!1i1024!2i768!4f13.1!3m3!1m2!1s0x3bcbbdd6b6f6b66b%3A0xf9499fac078687fd!2sA1%20Kitchen!5e0!3m2!1sen!2sin!4v1737820504800!5m2!1sen!2sin",
       title: "Bandlaguda Office",
       address: "8-4-122/21, Palace view colony, East Bandla GudaOpp RTA Office Chandrayangutta Hyderabad, Telangana 500005",
     },

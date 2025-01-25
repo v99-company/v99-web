@@ -21,11 +21,11 @@ export async function generateMetadata({ params }: { params: Promise<{ id: strin
     const clientData = data.data;
     console.log("Client Data: ", clientData);
 
-    const {city, state, description, email, mobileNumber } = clientData;
+    const {company_name, city, state, description, email, mobileNumber } = clientData;
 
     // Return the metadata with the fetched data
     return {
-      title: `V99 - ${city} - ${state}`,
+      title: `${company_name} - V99`,
       description: `${description} Contact us at ${email} or call ${mobileNumber}.`,
     };
 

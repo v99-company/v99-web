@@ -6,6 +6,8 @@ import SearchFilters from "../common/SearchFilters";
 import ClientList from "../common/ClientsList";
 import Hero from "../common/Hero";
 import { motion } from "framer-motion";
+import { useSearchParams } from "next/navigation";
+import WhatWeAre from "../common/WhatWeAre";
 
 
 
@@ -19,6 +21,16 @@ export default function Home() {
     console.log("Search term:", term);
     setSearchTerm(term || '');
   };
+
+  // const searchParams = useSearchParams();
+
+  // // Effect to read search parameter and set search term
+  // useEffect(() => {
+  //   const search = searchParams.get('search'); // Get 'search' parameter from URL
+  //   if (search) {
+  //     setSearchTerm(search);
+  //   }
+  // }, [searchParams]);
 
   useEffect(() => {
     // Fetch total clients count when the component mounts
@@ -68,7 +80,7 @@ export default function Home() {
         {/* Hero Section */}
         <div className="relative z-10 flex items-center justify-between flex-col min-h-96 w-full ">
           {/* Navbar */}
-          <div className="w-full bg-white"> 
+          <div className="w-full bg-white/10"> 
           <Navbar />
           </div>
 
@@ -79,7 +91,11 @@ export default function Home() {
           <div></div> {/* Important */}
         </div>
       </div>
-      <motion.div
+
+      {/* What we are section */}
+      <WhatWeAre />
+
+      {/* <motion.div
           initial={{ opacity: 0, y: 50 }}
           animate={{ opacity: 1, y: 0 }}
           transition={{ duration: 1, delay: 0.5 }}
@@ -129,7 +145,7 @@ export default function Home() {
               <p className="text-center text-xs sm:text-sm">{item.title}</p>
             </motion.div>
           ))}
-        </motion.div>
+        </motion.div> */}
 
 
       {/* List Section */}

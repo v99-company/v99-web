@@ -20,7 +20,7 @@ interface ListItemProps {
   mobile_number: string;
   email: string;
   pincode: string;
-  offers: Offer[]
+  offers?: Offer[]
 }
 
 export const ListItem: React.FC<ListItemProps> = ({
@@ -46,6 +46,7 @@ export const ListItem: React.FC<ListItemProps> = ({
       alt={company_name}
       width={200}
       height={200}
+      unoptimized
       className="rounded-lg object-cover w-full h-48 transition-transform duration-300 ease-in-out group-hover:scale-105"
     />
   </Link>
@@ -57,11 +58,11 @@ export const ListItem: React.FC<ListItemProps> = ({
     </Link>
 
     {/* Offers */}
-    <Link href={`/${id}#offers`} className="flex flex-wrap gap-2">
+    {offers && <Link href={`/${id}#offers`} className="flex flex-wrap gap-2">
         {offers.map((offer) => (
           <ClientOfferChips key={offer.id} offer={offer} />
         ))}
-      </Link>
+      </Link>}
 
     <p className="text-gray-600">{description}</p>
     <p className="flex items-start text-gray-700 font-semibold">

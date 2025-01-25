@@ -113,6 +113,7 @@ export function ClientDataTable<TData extends Client, TValue>({
         header: "Logo",
         cell: ({ row }) => (
           <Image
+          unoptimized
             src={row.getValue("logo")}
             alt="Logo"
             width={50}

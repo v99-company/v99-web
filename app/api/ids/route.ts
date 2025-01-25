@@ -3,7 +3,7 @@ import {NextResponse } from "next/server"
 export async function GET(req:Request){
 
   try {
-    const response = await fetch(`https://backend.mortuarybox.com/api/get_all_ids.php`);
+    const response = await fetch(`https://backend.v99.in/api/get_all_ids.php`);
     
     if(!response.ok){
       return NextResponse.json({message:'clients ids not found'}, {status:404})

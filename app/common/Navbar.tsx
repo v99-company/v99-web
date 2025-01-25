@@ -1,48 +1,67 @@
-'use client'
-import { useState } from 'react'
-import Link from 'next/link'
-import { Menu, X } from 'lucide-react'
-import Image from 'next/image';
+"use client"
 
-export default function Navbar({ bgColor = "bg-transparent" }) {
-  const [isOpen, setIsOpen] = useState(false);
+import { useState } from "react"
+import Link from "next/link"
+import { Menu, X } from "lucide-react"
+import Image from "next/image"
+import { useRouter } from "next/navigation"
+import SearchFilters from "./SearchFilters"
 
-  // Function to close the mobile menu
+export default function Navbar({ bgColor = "bg-white", showSearch = false }) {
+  const [isOpen, setIsOpen] = useState(false)
+  const router = useRouter()
+
   const handleLinkClick = () => {
     if (isOpen) {
-      setIsOpen(false);
+      setIsOpen(false)
     }
-  };
+  }
+
+  const handleSearch = (searchTerm: string) => {
+    if (searchTerm.trim()) {
+      // router.push(`/main?search=${encodeURIComponent(searchTerm)}`)
+      router.push(`/?search=${encodeURIComponent(searchTerm)}`)
+    }
+  }
 
   return (
-    <nav className={`px-2 md:px-8 lg:px-32  ${bgColor}`}>
-      <div className="w-full px-4 sm:px-6 lg:px-8">
-        <div className="flex w-full items-center justify-between h-16">
-        <Link href={"/"}>
-          <div className="flex items-center">
-            <Image
-              src="/fav.png"
-              alt="Logo"
-              width={50}
-              height={50}
-              className="mr-2 rounded-md"
-            />
-            <div className="text-xl font-bold text-red-900 cursor-pointer">V99</div>
+    <nav className={`px-4 md:px-8 lg:px-32 ${bgColor} py-2`}>
+      <div className="w-full flex items-center justify-between">
+        {/* Logo - always visible */}
+        <Link href="/" className="flex-shrink-0">
+          <Image src="/v99logo.png" alt="Logo" width={60} height={60} className="rounded-md" />
+        </Link>
+
+        {/* Navigation links - visible on larger screens when not searching */}
+        {!showSearch && (
+          <div className="hidden md:flex items-center space-x-4 font-semibold text-red-900 text-lg">
+            {/* <Link href="/add-business" className="hover:underline px-3 rounded-md"> */}
+            <Link href="/contact" className="hover:underline px-3 rounded-md">
+              Add Your Business
+            </Link>
+            <Link href="/about" className="hover:underline px-3 rounded-md">
+              About
+            </Link>
+            <Link href="/contact" className="hover:underline px-3 rounded-md">
+              Contact
+            </Link>
           </div>
-          </Link>
-          <div className="hidden md:block">
-            <div className="ml-10 flex items-baseline space-x-4 font-semibold text-red-900 text-lg">
-              {/* <Link href="/" onClick={handleLinkClick} className="text-red-300 hover:underline px-3 py-2 rounded-md text-sm font-medium">Home</Link> */}
-              <Link href="/add-business" onClick={handleLinkClick} className="hover:underline px-3 py-2 rounded-md">Add Your Business</Link>
-              <Link href="/about" onClick={handleLinkClick} className=" hover:underline px-3 py-2 rounded-md ">About</Link>
-              <Link href="/contact" onClick={handleLinkClick} className=" hover:underline px-3 py-2 rounded-md ">Contact</Link>
-            </div>
+        )}
+
+        {/* Search bar - visible when showSearch is true */}
+        {showSearch && (
+          <div className="flex-grow mx-4">
+            <SearchFilters placeholder="Search other businesses" onFilterChange={handleSearch} />
           </div>
-          <div className="-mr-2 flex md:hidden">
+        )}
+
+        {/* Mobile menu button - visible on smaller screens when not searching */}
+        {!showSearch && (
+          <div className="md:hidden">
             <button
               onClick={() => setIsOpen(!isOpen)}
               type="button"
-              className="inline-flex items-center justify-center p-2 rounded-md text-slate-100 hover:text-white hover:bg-gray-700 focus:outline-none focus:ring-2 focus:ring-offset-2 focus:ring-offset-gray-800 focus:ring-white"
+              className="inline-flex items-center justify-center p-2 rounded-md text-gray-400 hover:text-gray-500 hover:bg-gray-100 focus:outline-none focus:ring-2 focus:ring-inset focus:ring-red-500"
               aria-controls="mobile-menu"
               aria-expanded="false"
             >
@@ -54,15 +73,35 @@ export default function Navbar({ bgColor = "bg-transparent" }) {
               )}
             </button>
           </div>
-        </div>
+        )}
       </div>
-      {isOpen && (
-        <div className="md:hidden w-full flex items-center justify-center" id="mobile-menu">
-          <div className="flex items-center justify-center px-2 pt-2 pb-3 space-y-1 sm:px-3 font-semibold text-red-900">
-            <Link href="/add-business" onClick={handleLinkClick} className="hover:underline block px-3 py-2 rounded-md text-base ">Add your business</Link>
-            <Link href="/about" onClick={handleLinkClick} className="hover:underline block px-3 py-2 rounded-md text-base ">About</Link>
-            <Link href="/contact" onClick={handleLinkClick} className="hover:underline block px-3 py-2 rounded-md text-base ">Contact</Link>
-            {/* <Link href="/" onClick={handleLinkClick} className="text-red-300 hover:underline block px-3 py-2 rounded-md text-base font-medium">Home</Link> */}
+
+      {/* Mobile menu - visible on smaller screens when open and not searching */}
+      {isOpen && !showSearch && (
+        <div className="md:hidden mt-4" id="mobile-menu">
+          <div className="flex flex-col items-center space-y-2 font-semibold text-red-900">
+            <Link
+              // href="/add-business"
+              href="/contact"
+              onClick={handleLinkClick}
+              className="hover:underline block px-3 py-2 rounded-md text-base w-full text-center"
+            >
+              Add your business
+            </Link>
+            <Link
+              href="/about"
+              onClick={handleLinkClick}
+              className="hover:underline block px-3 py-2 rounded-md text-base w-full text-center"
+            >
+              About
+            </Link>
+            <Link
+              href="/contact"
+              onClick={handleLinkClick}
+              className="hover:underline block px-3 py-2 rounded-md text-base w-full text-center"
+            >
+              Contact
+            </Link>
           </div>
         </div>
       )}

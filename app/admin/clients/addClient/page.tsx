@@ -78,35 +78,35 @@ const AddClient = () => {
   const [idValid,setIdValid] = useState(false);
   const [defaultVal,setDefaultVal] = useState("");
   const [images, setImages] = useState<string []>([]);
-  
+  const [logo, setLogo] = useState<string>("");  
 
   const navigate = useRouter();
 
   const form = useForm<z.infer<typeof formSchema>>({
     resolver: zodResolver(formSchema),
     mode: "onSubmit",
-    defaultValues: {
-      id: "",
-      company_name: "",
-      description: "",
-      full_description: "",
-      address: "",
-      city: "",
-      state: "",
-      pincode: "",
-      contact_person: "",
-      email: "",
-      mobile_number: "",
-      whatsapp: "",
-      gmap: "",
-      yt_video: "",
-      logo: "",
-      images: "",
-      youtube: "",
-      instagram: "",
-      facebook: "",
-      twitter: "",
-    }
+      // defaultValues: {
+      //   id: "",
+      //   company_name: "A1 kitchens",
+      //   description: "A1 kitches Manufacturer & Supplier Stainless Steel Commercial Kitchen Equipments and Streets Food Counters as per Customers Requirements Stainless Steel Commercial Refrigeration and Drinking Water Cooler Dispensers, Chillers/Freezers, Deep Freezers.",
+      //   full_description: "The raw material required in manufacturing these products are procured from trustworthy vendors in the market. Apart from this, the offered range is widely recommended for its features like excellent finishing, long service life, and sturdy construction.We, A1 Kitchen from 2018 are prominent manufacturers and traders of high-quality Kitchen Equipment and Display Counter. Offered products range consists of Commercial Kitchen Equipment, Mortuary Box, Water Cooler, etc",
+      //   address: "8-4-122/21, Palace View Colony, East Bandlaguda Hyderabad - 500005, Telangana, India",
+      //   city: "Hyderabad",
+      //   state: "Telangana", 
+      //   pincode: "500005",
+      //   contact_person: "Mohammed Azeem",
+      //   email: "info@a1kitchens.com",
+      //   mobile_number: "8046031195",  
+      //   whatsapp: "8046031195",
+      //   gmap: "",
+      //   yt_video: "",
+      //   logo: "",
+      //   images: "",
+      //   youtube: "",
+      //   instagram: "",
+      //   facebook: "",
+      //   twitter: "",
+      // }
   });
 
   useEffect(() => {
@@ -195,7 +195,6 @@ const AddClient = () => {
 
           if (client.logo) setIsLogoEdit(true);
 
-
         }
       } catch (error) {
         console.error("Error parsing edit data:", error);
@@ -263,16 +262,32 @@ const AddClient = () => {
 
   const [isSuccess, setIsSuccess] = useState(false);
   const [successMessage, setSuccessMessage] = useState("");
+  const { control, watch, setValue } = form;
+  const companyName = watch("company_name");
+  const city = watch("city");
+  const state = watch("state");
+  const flogo = watch("logo");
+  const mobile_number = watch("mobile_number");
+
+useEffect(() => {
+  console.log("F Logo: ", flogo);
+}, [flogo])
+
   async function onSubmit(data: z.infer<typeof formSchema>) {
     const {logo, ...values} = data;
     console.log("Submit values: ", values);
 
     const token = localStorage.getItem("loginToken");
+
+    console.log("LOGO: ", logo);
+    console.log("LOGO field: ", flogo);
+    
     
     const payload = {
       ...values,
       yt_video: ytVideoId ? `https://www.youtube.com/embed/${ytVideoId}` : "",
       gmap: embedLink? embedLink : "",
+      logo: flogo,
       images: images.join(", ")
     };
 
@@ -332,82 +347,8 @@ const AddClient = () => {
       }
     }
 }
-  const { control, watch, setValue } = form;
-  const companyName = watch("company_name");
-  const city = watch("city");
-  const state = watch("state");
-  const mobile_number = watch("mobile_number");
 
-  // Function to generate descriptions
-  const generateDescriptions = (
-    companyName: string,
-    city: string,
-    state: string
-  ) => {
-    const templates = {
-      description: [
-        "{companyName} is a trusted provider of mortuary and ambulance services in {city}, {state}.",
-        "{companyName} is a leading name for mortuary services in {city}, {state}.",
-        "{companyName} provides trusted mortuary services in {city}, {state}.",
-        "{companyName} is a dependable provider of mortuary services in {city}, {state}."
-      ],
-      full_description: [
-        "At {companyName}, we are committed to serving families in {city}, {state}, with utmost care and dignity. We specialize in providing reliable mortuary services, ensuring a respectful farewell for your loved ones.",
-        "In {city}, {companyName} stands out as a compassionate service provider offering mortuary and ambulance services. We strive to support families with dignity and care during their difficult times.",
-        "{companyName} offers professional mortuary services in {city}, {state}, ensuring families receive the support they need during challenging times.",
-        "{companyName} is dedicated to providing respectful and reliable mortuary services in {city}, {state}."
-      ]
-    };
 
-    const getRandomTemplate = (templateArray: string[]) =>
-      templateArray[Math.floor(Math.random() * templateArray.length)];
-
-    const descriptionTemplate = getRandomTemplate(templates.description);
-    const fullDescriptionTemplate = getRandomTemplate(
-      templates.full_description
-    );
-
-    const description: string = descriptionTemplate
-      .replace("{companyName}", companyName)
-      .replace("{city}", city)
-      .replace("{state}", state);
-
-    const fullDescription: string = fullDescriptionTemplate
-      .replace("{companyName}", companyName)
-      .replace("{city}", city)
-      .replace("{state}", state);
-
-    return { description, full_description: fullDescription };
-  };
-
-  const handleAddCity = () => {
-    if (companyName && city && state) {
-      const { description, full_description } = generateDescriptions(
-        companyName,
-        city,
-        state
-      );
-
- 
-      const currentDescription = form.getValues("description") || "";
-      const currentFullDescription = form.getValues("full_description") || "";
-
-      setValue(
-        "description",
-        currentDescription
-          ? currentDescription + "\n" + description
-          : description
-      );
-      setValue(
-        "full_description",
-        currentFullDescription
-          ? currentFullDescription + "\n" + full_description
-          : full_description
-      );
-
-      setValue("address", `${city}, ${state}`);
-    }
-  };
   const checkId = (id: any) => {
     if (id.length < 5) return;
 
@@ -422,7 +363,6 @@ const AddClient = () => {
   };
 
   useEffect(() => {
-
     checkId(id);
   }, [id]);
 
@@ -637,13 +577,6 @@ const AddClient = () => {
                                     )}
                                 </datalist>
                               </div>
-                              <Button
-                                type="button"
-                                className="bg-gray-300"
-                                onClick={handleAddCity}
-                              >
-                                <Check className="text-green-500 cursor-pointer" />
-                              </Button>
                             </div>
                           </FormControl>
                           <FormMessage />
@@ -985,10 +918,21 @@ const AddClient = () => {
                               <FileUploader
                                 onFileUpload={(data) => {
                                   console.log("Logo file uploaded: ", data);
-                                  if (data) {
-                                    field.onChange(data[0]);
-                                    setIsLogoEdit(true);
+
+                                  console.log("Data: ", data);
+                                  if (!data || data.length === 0) {
+                                    console.error("No file data received");
+                                    return;
                                   }
+                                  console.log("Logo file : ", field.value);
+                                  if (data) {
+                                    setIsLogoEdit(true);
+                                    field.onChange(data[0]);
+                                    console.log("Logo: ", field.value);
+                                    setLogo(data[0]);
+                                  } else {
+                                    console.log("No Logo");
+                                  } 
                                 }}
                                 label={"Logo"}
                                 correspondantFileType={"Logo"}

@@ -21,6 +21,7 @@ import { Client } from '../utils/interfaces'
 import ClientOffers from '../common/ClientOffers'
 import { FontAwesomeIcon } from '@fortawesome/react-fontawesome'
 import { faWhatsapp } from '@fortawesome/free-brands-svg-icons'
+import ImageGallerySlideshow from '../common/ImageGallerySlideshow'
 
 export default function DetailsPage() {
   const params = useParams()
@@ -58,11 +59,11 @@ export default function DetailsPage() {
   return (
     <div className="min-h-screen bg-gray-100">
       <div className='bg-white'>
-        <Navbar />
+        <Navbar showSearch={true}/>
       </div>
       {!item ? <DetailPageSkeleton /> : 
       ( 
-      <main className="container mx-auto px-4 py-8">
+      <main className="container mx-auto px-4 pt-4 pb-8">
         <div className="bg-white shadow-lg rounded-lg overflow-hidden">
           {/* Header Image */}
           <div className="relative h-64 md:h-96">
@@ -71,9 +72,10 @@ export default function DetailsPage() {
               alt={item.company_name}
               layout="fill"
               objectFit="cover"
+              unoptimized
             />
-            <div className="absolute inset-0 bg-black bg-opacity-50 flex items-center justify-center">
-              <h1 className="text-4xl md:text-5xl font-bold text-white text-center">{item.company_name}</h1>
+            <div className="absolute inset-0 bg-black/40 flex items-center justify-center">
+              <h1 className="text-4xl md:text-5xl font-bold text-white text-center px-8">{item.company_name}</h1>
             </div>
           </div>
 
@@ -86,9 +88,9 @@ export default function DetailsPage() {
                 <h2 className="text-2xl font-semibold mb-4">About Us</h2>
                 <p className="text-gray-600 mb-6">{item.full_description}</p>
               </div>
-              <div id='offers'>
+              {item.offers && <div id='offers'>
                 <ClientOffers offers={item.offers} />
-              </div>
+              </div>}
               <div className="bg-gray-50 p-6 rounded-lg mb-6">
                 <h2 className="text-2xl font-semibold mb-4">Contact Information</h2>
                 <div className="space-y-4">
@@ -104,14 +106,19 @@ export default function DetailsPage() {
                       {item.address} - {item.pincode}
                     </span>
                   </p>
-                  <p className="flex items-center text-black"><Mail className="mr-2  text-red-600" /> {item.email}</p>
-                  <p className="flex items-center text-black"><Phone className="mr-2  text-red-600" /> {item.mobile_number}</p>
+                  {item.email && <p className="flex items-center text-black"><Mail className="mr-2  text-red-600" /> {item.email}</p>}
+                  {item.mobile_number && <p className="flex items-center text-black"><Phone className="mr-2  text-red-600" /> {item.mobile_number}</p>}
+                  {item.whatsapp && <p className="flex items-center text-black"><FontAwesomeIcon icon={faWhatsapp} className="mr-2 h-6 w-6 text-red-600" /> {item.whatsapp}</p>}
                   {/* <p className="flex items-center"><div className="mr-2 text-gray-400" /> {item.} (Alternate)</p> */}
                 </div>
               </div>
 
               {/* Image Gallery */}
-              <div className="mt-8">
+              <ImageGallerySlideshow
+                images={item.images} 
+                IMAGE_FILES_URL={IMAGE_FILES_URL} 
+              />
+              {/* <div className="mt-8">
                 <h2 className="text-2xl font-semibold mb-4 text-red-800">Gallery</h2>
                 <div className="grid grid-cols-2 md:grid-cols-4 gap-4">
                   {item.images.map((img, index) => (
@@ -126,9 +133,9 @@ export default function DetailsPage() {
                     />
                   ))}
                 </div>
-              </div>
+              </div> */}
               {/* Fullscreen Viewer */}
-              {selectedImage && (
+              {/* {selectedImage && (
                 <div className="fixed inset-0 bg-black bg-opacity-75 flex items-center justify-center z-50">
                   <div className="relative">
                     <button
@@ -146,7 +153,9 @@ export default function DetailsPage() {
                     />
                   </div>
                 </div>
-              )}
+              )} */}
+
+              
             </div>
 
             {/* Second Column */}
@@ -209,7 +218,7 @@ export default function DetailsPage() {
                 {item.yt_video && (
                   <div>
                     {item.yt_video &&
-                      <div className="my-6">
+                      <div className="mt-6">
                         <h3 className="text-xl font-semibold mb-2 text-red-800">Watch Our Video</h3>
                         <div className="relative pb-[56.25%] h-0">
                           <iframe
@@ -226,7 +235,7 @@ export default function DetailsPage() {
                   </div>
                 )}
 
-                <div className="mb-6">
+                <div className="pt-6">
                   <h3 className="text-xl font-semibold mb-2 text-red-800">Find Us</h3>
                   <div className="relative pb-[56.25%] h-0">
                     <iframe

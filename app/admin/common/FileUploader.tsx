@@ -135,6 +135,7 @@ export function FileUploader({ onFileUpload, label, correspondantFileType, isMul
           <div key={index} className="mt-2 relative">
             <div className="relative w-32 h-32 rounded-md overflow-hidden">
               <Image
+                unoptimized
                 src={previewUrl}
                 width={200}
                 height={200}

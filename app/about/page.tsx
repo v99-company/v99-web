@@ -5,10 +5,11 @@ import { Button } from "@/components/ui/button"
 import { Card, CardContent, CardHeader, CardTitle, CardFooter, CardDescription } from "@/components/ui/card"
 import Image from 'next/image'
 import Navbar from '../common/Navbar'
+import TeluguDescriptionSection from '../common/TeluguDescriptionSection'
 
 export const metadata: Metadata = {
   title: 'About Us | V99',
-  description: 'Learn about our mission to provide dignified and hygienic mortuary services across India.',
+  description: 'Build your brand’s online presence easily and affordably with V99.',
 }
 
 const IconButton = ({ icon: Icon, text, href }: { icon: any, text: string, href: string }) => (
@@ -56,42 +57,44 @@ const LocationCard = ({ src, title, address }: { src: string; title: string; add
 
 
 export default function AboutUsPage() {
-    const companyInfo = {
-      name: "V99",
-      phone: "8688520059",
-      email: "mortuarybox@gmail.com",
-      address: "Dead Body Freezer Box ManufacturersSouth Zone 8-4-122/21, Palace view colony, East Bandla GudaOpp RTA Office Chandrayangutta Hyderabad, Telangana 500005 India",
-      whatsapp: "8688520059",
-    };
-  
-    const locations = [
-      {
-        src: "https://www.google.com/maps/embed?pb=!1m18!1m12!1m3!1d3913.3139680325974!2d78.46469701477557!3d17.31979141309881!2m3!1f0!2f0!3f0!3m2!1i1024!2i768!4f13.1!3m3!1m2!1s0x3bcbbd4e52462f2b%3A0xc8ff7db57d31720b!2sMortuary%20Dead%20Body%20Freezer%20Box%20Manufacturers!5e0!3m2!1sen!2sin!4v1600000000000",
-        title: "Bandlaguda Office",
-        address: "8-4-122/21, Palace view colony, East Bandla GudaOpp RTA Office Chandrayangutta Hyderabad, Telangana 500005",
-      },
-      {
-        src: "https://www.google.com/maps/embed?pb=!1m18!1m12!1m3!1d3805.9794030952553!2d78.44034797580413!3d17.460699900687743!2m3!1f0!2f0!3f0!3m2!1i1024!2i768!4f13.1!3m3!1m2!1s0x3bcb96f87b6dbb4d%3A0xccddcd1e54b89cd0!2sAyaan%20Kitchen!5e0!3m2!1sen!2sin!4v1736519692896!5m2!1sen!2sin",
-        title: "Sanathnager Office",
-        address: "Ayaan Kitchen B-22, Beside Metalica Steel Factory, Balanagar Industrial Area Sanathnagar, Hyderabad - 500018, Telangana, India",
-      },
-    ];
+  const companyInfo = {
+    name: "V99",
+    phone: "8688520059",
+    email: "v99india@gmail.com",
+    address2: "Ayaan Kitchen B-22, Beside Metalica Steel Factory, Balanagar Industrial Area Sanathnagar, Hyderabad - 500018, Telangana, India",
+    whatsapp: "8688520059",
+  };
+
+  const locations = [
+    {
+      src: "https://www.google.com/maps/embed?pb=!1m18!1m12!1m3!1d3808.903509244322!2d78.46392807580204!3d17.320204104735875!2m3!1f0!2f0!3f0!3m2!1i1024!2i768!4f13.1!3m3!1m2!1s0x3bcbbdd6b6f6b66b%3A0xf9499fac078687fd!2sA1%20Kitchen!5e0!3m2!1sen!2sin!4v1737820504800!5m2!1sen!2sin",
+      title: "Bandlaguda Office",
+      address: "8-4-122/21, Palace view colony, East Bandla GudaOpp RTA Office Chandrayangutta Hyderabad, Telangana 500005",
+    },
+    {
+      src: "https://www.google.com/maps/embed?pb=!1m18!1m12!1m3!1d3805.9794030952553!2d78.44034797580413!3d17.460699900687743!2m3!1f0!2f0!3f0!3m2!1i1024!2i768!4f13.1!3m3!1m2!1s0x3bcb96f87b6dbb4d%3A0xccddcd1e54b89cd0!2sAyaan%20Kitchen!5e0!3m2!1sen!2sin!4v1736519692896!5m2!1sen!2sin",
+      title: "Sanathnager Office",
+      address: "Ayaan Kitchen B-22, Beside Metalica Steel Factory, Balanagar Industrial Area Sanathnagar, Hyderabad - 500018, Telangana, India",
+    },
+  ];
   
     return (
       <div className="min-h-screen bg-gray-50">
-        <div className="bg-gray-900 pb-4">
           <Navbar />
-        </div>
-        <header className="bg-gray-900 text-white py-16 md:py-20">
+        <header className="bg-lime-500 text-white py-16 md:py-20">
           <div className="container mx-auto px-4 text-center">
             <h1 className="text-4xl md:text-5xl font-bold mb-4">
               About {companyInfo.name}
             </h1>
             <p className="text-xl md:text-2xl max-w-2xl mx-auto">
-              Providing Dignified And Hygienic Mortuary Services Across India
+              Build your brands online presence easily and affordably with V99.
             </p>
           </div>
         </header>
+
+        <section>
+          <TeluguDescriptionSection />
+        </section>
   
         <main className="container mx-auto px-4 py-12 space-y-20">
           <section>
@@ -103,7 +106,9 @@ export default function AboutUsPage() {
               </CardHeader>
               <CardContent>
                 <p className="text-lg text-gray-900 mb-6">
-                  At {companyInfo.name}, We Understand The Importance Of Treating The Deceased With Dignity And Respect. Our Mission Is To Provide A Dignified And Hygienic Way To Store The Deceased, While Also Supporting Families During Their Time Of Grief. We Offer Mortuary Dead Body Freezer Box Rentals And Free Services Across India.
+                  At {companyInfo.name}, we are revolutionizing the way local businesses and service providers connect with their communities. Our platform is designed to make it easy for users to discover and engage with nearby businesses and service providers in just a few clicks. 
+
+Our Mission
                 </p>
               </CardContent>
             </Card>
@@ -111,7 +116,7 @@ export default function AboutUsPage() {
   
           <section>
             <h2 className="text-3xl font-bold text-center text-[rgb(55,65,81)] !important mb-8">
-              Our Services
+              Our Mission
             </h2>
   
             <div className="space-y-8">
@@ -119,100 +124,98 @@ export default function AboutUsPage() {
                 <CardHeader>
                   <CardTitle className="flex items-center space-x-4">
                     <Heart className="w-8 h-8 text-gray-900" />
-                    <span>Mortuary Dead Body Freezer Box Rentals</span>
+                    <span>V99 For You</span>
                   </CardTitle>
                 </CardHeader>
                 <CardContent>
                   <p className="text-gray-900 mb-4">
-                    We Provide Clean, Hygienic, And Well-Maintained Freezer Boxes For Rent. Our Boxes Are Designed To Maintain A Consistent Temperature, Ensuring The Dignity Of The Deceased.
+                  We list local businesses and service providers on a single, user-friendly platform, allowing users to effortlessly find what they need in their area. Whether you're looking for a cozy café, a reliable plumber, or a skilled photographer, V99 has you covered.
                   </p>
                 </CardContent>
-                <CardFooter>
-                  <IconButton icon={ChevronRight} text="Rent Now" href="/" />
-                </CardFooter>
               </Card>
               <Card>
                 <CardHeader>
                   <CardTitle className="flex items-center space-x-4">
                     <DollarSign className="w-8 h-8 text-gray-900" />
-                    <span>Free Mortuary Services</span>
+                    <span>Our Specialty</span>
                   </CardTitle>
                 </CardHeader>
                 <CardContent>
                   <p className="text-gray-900 mb-4">
-                    We Offer Free Mortuary Services To Those In Need. Our Team Will Work With You To Ensure The Deceased Is Treated With Respect And Dignity.
+                  What sets us apart is our unique approach to showcasing each business. Every local business or service provider gets their very own dedicated page — a comprehensive, all-in-one profile that highlights everything about them. This personalized page can be easily shared with anyone via a simple, memorable link like v99.in/23444, where the 5-digit code serves as their unique identifier. 
+
+With V99, finding and promoting local businesses has never been easier or more efficient. Join us in supporting your local community and discovering the best services right at your fingertips! 
                   </p>
                 </CardContent>
-                <CardFooter>
-                  <IconButton icon={ChevronRight} text="Learn More" href="/" />
-                </CardFooter>
-              </Card>
-              <Card>
-                <CardHeader>
-                  <CardTitle className="flex items-center space-x-4">
-                    <Truck className="w-8 h-8 text-gray-900" />
-                    <span>Home Delivery And Pickup</span>
-                  </CardTitle>
-                </CardHeader>
-                <CardContent>
-                  <p className="text-gray-900 mb-4">
-                    We Offer Convenient Home Delivery And Pickup Services For Our Freezer Boxes, Ensuring Minimal Disruption To Your Family.
-                  </p>
-                </CardContent>
-                <CardFooter>
-                  <IconButton icon={ChevronRight} text="Schedule Service" href="/" />
-                </CardFooter>
               </Card>
             </div>
           </section>
 
-          <section>
-            <Card>
-            <CardHeader>
-            <CardTitle className="flex items-center space-x-4">
-                <Users className="w-8 h-8 text-gray-900" />
-                <span>Dealers Required</span>
-              </CardTitle>
-              <CardDescription className="text-gray-700 mb-4">Mortuary Freezer Box Dealers Require Pan India </CardDescription>
-            </CardHeader>
-            <CardContent className="space-y-6">
-              <p>Wanted Dealers, Distributors, Resellers, Freelancers Required All India States Andaman & Nicobar Islands, Andhra Pradesh, Arunachal Pradesh, Assam, Bihar, Chandigarh, Chhattisgarh, Dadra & Nagar Haveli, Daman & Diu, Delhi, Goa, Gujarat, Haryana, Himachal Pradesh, Jammu & Kashmir, Jharkhand, Karnataka, Kerala, Lakshawdeep, Madhya Pradesh, Maharashtra, Manipur, Nagaland, Orissa, Odisha, Pondicherry, Punjab, Rajasthan, Sikkim, Tamil Nadu, Telangana, Tripura, Uttar Pradesh, Uttarakhand, West Bengal.</p>
-            </CardContent>
-            </Card>
-        </section>
+          <section className="p-6 bg-gray-100">
+      <Card>
+        <CardHeader>
+          <CardTitle className="flex items-center space-x-4">
+            <Users className="w-8 h-8 text-gray-900" />
+            <span>Freelancers & Students Wanted</span>
+          </CardTitle>
+          <CardDescription className="text-gray-700 mb-4">
+            Help us onboard local businesses and service providers in your area!
+          </CardDescription>
+        </CardHeader>
+        <CardContent className="space-y-6">
+          <p>
+            Are you a student or freelancer looking for an exciting opportunity to earn while making a difference? Join V99 today and help us connect local businesses and service providers with their communities across India.
+          </p>
+          <p>
+            We are seeking passionate individuals like you who can help us onboard local businesses and service providers in all states and union territories:
+          </p>
+          <ul className="list-disc pl-5">
+            <li>Andaman & Nicobar Islands</li>
+            <li>Andhra Pradesh</li>
+            <li>Arunachal Pradesh</li>
+            <li>Assam</li>
+            <li>Bihar</li>
+            <li>Chandigarh</li>
+            <li>Chhattisgarh</li>
+            <li>Dadra & Nagar Haveli</li>
+            <li>Daman & Diu</li>
+            <li>Delhi</li>
+            <li>Goa</li>
+            <li>Gujarat</li>
+            <li>Haryana</li>
+            <li>Himachal Pradesh</li>
+            <li>Jammu & Kashmir</li>
+            <li>Jharkhand</li>
+            <li>Karnataka</li>
+            <li>Kerala</li>
+            <li>Lakshadweep</li>
+            <li>Madhya Pradesh</li>
+            <li>Maharashtra</li>
+            <li>Manipur</li>
+            <li>Nagaland</li>
+            <li>Odisha</li>
+            <li>Pondicherry</li>
+            <li>Punjab</li>
+            <li>Rajasthan</li>
+            <li>Sikkim</li>
+            <li>Tamil Nadu</li>
+            <li>Telangana</li>
+            <li>Tripura</li>
+            <li>Uttar Pradesh</li>
+            <li>Uttarakhand</li>
+            <li>West Bengal</li>
+          </ul>
+          <p>
+            By joining V99, you'll have the chance to earn attractive incentives and build valuable experience. Whether you're looking to supplement your income or kickstart your career, this is your opportunity to shine.
+          </p>
+          <p>
+            Ready to make an impact? Sign up now and start earning today!
+          </p>
+        </CardContent>
+      </Card>
+    </section>
   
-          <section>
-            <Card>
-              <CardHeader>
-                <CardTitle className="text-3xl font-bold text-center text-[rgb(55,65,81)] !important">
-                  Why Choose Us?
-                </CardTitle>
-              </CardHeader>
-              <CardContent className="space-y-6">
-                <Feature
-                  icon={Star}
-                  title="Dignified And Respectful"
-                  description="We Treat The Deceased With Dignity And Respect, Ensuring They Are Handled With Care."
-                />
-                <Feature
-                  icon={Shield}
-                  title="Hygienic And Clean"
-                  description="Our Freezer Boxes Are Regularly Cleaned And Disinfected To Ensure A Hygienic Environment."
-                />
-                <Feature
-                  icon={Clock}
-                  title="Convenient And Affordable"
-                  description="We Offer Competitive Pricing And Convenient Home Delivery And Pickup Services."
-                />
-                <Feature
-                  icon={Zap}
-                  title="24/7 Support"
-                  description="Our Team Is Available Round The Clock To Assist You In Your Time Of Need."
-                />
-              </CardContent>
-            </Card>
-          </section>
-  
+{/*          
           <section>
             <Card>
               <CardHeader>
@@ -227,9 +230,9 @@ export default function AboutUsPage() {
                 <p className="text-right font-semibold">Clients</p>
               </CardContent>
             </Card>
-          </section>
+          </section> */}
   
-          <section>
+          {/* <section>
             <h2 className="text-3xl font-bold text-center mb-8 text-[rgb(55,65,81)] !important">
               Frequently Asked Questions
             </h2>
@@ -266,7 +269,7 @@ export default function AboutUsPage() {
               </Card>
             </div>
           </section>
-  
+   */}
           <section>
             <h2 className="text-3xl font-bold text-center mb-8 text-[rgb(55,65,81)] !important">
               Our Locations

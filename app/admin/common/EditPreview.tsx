@@ -21,13 +21,14 @@ export function EditPreview({ file, onDelete }: EditPreviewProps) {
     };
 
   return (
-    <div className="space-y-2 ml-4 mt-2">
+    <div className="w-full space-y-2 ml-4 mt-2">
      {file && 
      <main>    
      <div className="mt-2">
         
           <div className="relative w-32 h-32 rounded-md overflow-hidden">
             <Image
+              unoptimized
               src={getImageSrc(file)}
               width={200}
               height={200}

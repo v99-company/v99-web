@@ -33,7 +33,7 @@ const Hero: React.FC<HeroProps> = ({ handleFilterChange }) => {
             initial="hidden"
             animate="visible"
             className="text-xl md:text-4xl font-bold mb-6 text-[#e0e1dd]">
-                        #1 PLATFORM FOR LISTING LOCAL BUSINESSES
+                        No.1 PLATFORM FOR LISTING LOCAL BUSINESSES
             </motion.h1>
             <SearchFilters onFilterChange={handleFilterChange} />
         </motion.div>
