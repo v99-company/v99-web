@@ -20,7 +20,7 @@ function Footer() {
     </div>
 
     <p className="text-center text-sm md:text-left">
-      &copy; {new Date().getFullYear()} V99. All rights reserved.
+      &copy; {new Date().getFullYear()} V99 Nearby Locator. All rights reserved.
     </p>
 
     <Link

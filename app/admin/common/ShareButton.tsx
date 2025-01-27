@@ -19,7 +19,7 @@ interface ShareButtonProps {
   className?: string;
 }
 
-export default function ShareButton({ id, title = 'Check this out!', text = 'Find V99 near you!', className = '' }: ShareButtonProps) {
+export default function ShareButton({ id, title = 'Check Out My V99 Page!', text = 'Find My V99 Online Website!', className = '' }: ShareButtonProps) {
   const [isSharing, setIsSharing] = useState(false);
   const [isCopied, setIsCopied] = useState(false);
   const [isDialogOpen, setIsDialogOpen] = useState(false);

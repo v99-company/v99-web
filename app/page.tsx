@@ -91,7 +91,7 @@ export default function Home() {
         <div className="relative z-10 flex items-center justify-between flex-col min-h-96 w-full ">
           {/* Navbar */}
         <div className="w-full"> 
-          <Navbar bgColor="bg-transparent" />
+          <Navbar className="bg-transparent" />
         </div>
 
           {/* Hero Content */}

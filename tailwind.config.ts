@@ -9,6 +9,10 @@ export default {
   ],
   theme: {
   	extend: {
+		textShadow: {
+			sm: '1px 1px 2px rgba(0, 0, 0, 0.5)',
+			lg: '2px 2px 4px rgba(0, 0, 0, 0.5)',
+		  },
   		colors: {
 			red: {
 				850: '#800000', // Maroon-like custom shade
@@ -63,5 +67,8 @@ export default {
   		}
   	}
   },
-  plugins: [require("tailwindcss-animate")],
+  plugins: [
+	require("tailwindcss-animate"),
+	require('tailwindcss-textshadow'),
+],
 } satisfies Config;

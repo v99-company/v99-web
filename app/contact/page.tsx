@@ -9,7 +9,7 @@ import Navbar from '../common/Navbar'
 
 const page = () => {
   const companyInfo = {
-    name: "V99",
+    name: "V99 Nearby Locator",
     phone: "8688520059",
     email: "v99india@gmail.com",
     address2: "Ayaan Kitchen B-22, Beside Metalica Steel Factory, Balanagar Industrial Area Sanathnagar, Hyderabad - 500018, Telangana, India",
@@ -52,7 +52,7 @@ const page = () => {
 
   return (
     <div>
- <Navbar bgColor='bg-white'/>
+      <Navbar className="sticky top-0 z-50 bg-white shadow-md " showSearch={false} />
     <div className="p-5 mt-8">
       <Card className="shadow-lg">
         <div className="grid grid-cols-1 md:grid-cols-2 divide-y md:divide-y-0 md:divide-x divide-gray-300">
@@ -63,18 +63,18 @@ const page = () => {
             </CardHeader>
             <CardContent>
               <p className="text-lg text-red-800 mb-6">
-                Get in touch with us today to learn more about V99 and make your own online business page.
+                Get in touch with us today to learn more about V99 Nearby Locator and make your own online business page.
               </p>
               <div className="space-y-4 mb-8">
                 <div className="flex items-center space-x-4">
-                  <Phone className="w-6 h-6 text-red-800" />
-                  <span className="text-red-800">{companyInfo.phone}</span>
+                  <Phone className="w-6 h-6 text-blue-600" />
+                  <span className="text-blue-600">{companyInfo.phone}</span>
                 </div>
                 <div className="flex items-center space-x-4">
-                  <Mail className="w-6 h-6 text-red-800" />
-                  <span className="text-red-800">{companyInfo.email}</span>
+                  <Mail className="w-6 h-6 text-cyan-600" />
+                  <span className="text-cyan-600">{companyInfo.email}</span>
                 </div>
-                <p className="flex items-start text-red-800 ">
+                <p className="flex items-start text-red-500 ">
                     <span className="flex items-start mr-2 font-semibold">
                       <MapPin className="h-6 w-6 mt-1" />
                     </span>

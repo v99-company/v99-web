@@ -5,9 +5,14 @@ const WhatWeAre = () => {
   return (
     <section>
       {/* Heading */}
-      <div className="w-full text-center py-4">
+      <header className='w-full flex flex-col items-center justify-center'>
+      <div className="lg:w-[80%] w-full text-center py-4 space-y-4">
         <h2 className="text-xl md:text-2xl font-bold text-gray-700">What We Are</h2>
+        <h2 className="text-md md:text-xl text-gray-500">
+          V99 Nearby Locator is a Business Listing Locatin Finder, and Web Page Provider to Show Business Information for Multi-Brands,
+           Multi-Categories Various Service to Show Website Style Web Pages and Can Put Classified Ads on this Platform</h2>
       </div>
+      </header>
 
       {/* Scrolling Slogans Section */}
       <div className="w-full relative overflow-hidden bg-gradient-to-r from-blue-300 via-lime-300 to-orange-300">
@@ -27,7 +32,7 @@ const WhatWeAre = () => {
             <span className="inline-block px-4 text-lg py-4 text-black font-semibold">Your Business, Online in Seconds—For Less Than a Cup of Tea!</span>
             <span className="inline-block px-4 text-lg py-4 text-black font-semibold">Empower Your Business, Elevate Your Reach.</span>
             <span className="inline-block px-4 text-lg py-4 text-black font-semibold">From Local to Global, With Just 5 Digits.</span>
-            <span className="inline-block px-4 text-lg py-4 text-black font-semibold">Promote your business with V99 for just 1 rupee a day.</span>
+            <span className="inline-block px-4 text-lg py-4 text-black font-semibold">Promote your business with V99 Nearby Locator for just 1 rupee a day.</span>
             <span className="inline-block px-4 text-lg py-4 text-black font-semibold">Unlock Opportunities, Unlock Potential.</span>
             <span className="inline-block px-4 text-lg py-4 text-black font-semibold">Affordable Visibility, Unlimited Possibilities.</span>
             <span className="inline-block px-4 text-lg py-4 text-black font-semibold">Simple, Affordable, Effective.</span>
@@ -41,7 +46,7 @@ const WhatWeAre = () => {
             <span className="inline-block px-4 text-lg py-4 text-black font-semibold">Your Business, Online in Seconds—For Less Than a Cup of Tea!</span>
             <span className="inline-block px-4 text-lg py-4 text-black font-semibold">Empower Your Business, Elevate Your Reach.</span>
             <span className="inline-block px-4 text-lg py-4 text-black font-semibold">From Local to Global, With Just 5 Digits.</span>
-            <span className="inline-block px-4 text-lg py-4 text-black font-semibold">Promote your business with V99 for just 1 rupee a day.</span>
+            <span className="inline-block px-4 text-lg py-4 text-black font-semibold">Promote your business with V99 Nearby Locator for just 1 rupee a day.</span>
             <span className="inline-block px-4 text-lg py-4 text-black font-semibold">Unlock Opportunities, Unlock Potential.</span>
             <span className="inline-block px-4 text-lg py-4 text-black font-semibold">Affordable Visibility, Unlimited Possibilities.</span>
             <span className="inline-block px-4 text-lg py-4 text-black font-semibold">Simple, Affordable, Effective.</span>

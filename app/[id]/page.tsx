@@ -27,10 +27,6 @@ export default function DetailsPage() {
   const params = useParams()
   const [item, setItem] = useState<Client | undefined>(undefined)
 
-  const [selectedImage, setSelectedImage] = useState<string | null>(null);
-
-  const handleClose = () => setSelectedImage(null);
-
   useEffect(() => {
 
     async function fetchClientData() {
@@ -58,24 +54,23 @@ export default function DetailsPage() {
 
   return (
     <div className="min-h-screen bg-gray-100">
-      <div className='bg-white'>
-        <Navbar showSearch={true}/>
-      </div>
+        <Navbar className="sticky top-0 z-50 bg-white py-2" showSearch={true} />
+
       {!item ? <DetailPageSkeleton /> : 
       ( 
       <main className="container mx-auto px-4 pt-4 pb-8">
-        <div className="bg-white shadow-lg rounded-lg overflow-hidden">
+        <div className="bg-white shadow-lg rounded-lg overflow-hidden h-full">
           {/* Header Image */}
-          <div className="relative h-64 md:h-96">
+          <div className="relative h-64 md:h-[480px]">
             <Image
               src={item.logo}
               alt={item.company_name}
               layout="fill"
-              objectFit="cover"
+              objectFit="fill"
               unoptimized
             />
-            <div className="absolute inset-0 bg-black/40 flex items-center justify-center">
-              <h1 className="text-4xl md:text-5xl font-bold text-white text-center px-8">{item.company_name}</h1>
+            <div className="absolute inset-0 bg-black/30 flex items-center justify-center">
+              <h1 className="text-4xl md:text-5xl font-bold text-white text-center px-8 text-shadow-lg">{item.company_name}</h1>
             </div>
           </div>
 
@@ -95,20 +90,20 @@ export default function DetailsPage() {
                 <h2 className="text-2xl font-semibold mb-4">Contact Information</h2>
                 <div className="space-y-4">
                   <p className="flex items-center text-black">
-                    <Building className="mr-2  text-red-600" />{item.company_name}</p>
+                    <Building className="mr-2  text-orange-500" />{item.company_name}</p>
                   <p className="flex items-center text-black">
-                    <User className="mr-2 text-red-600" />{item.contact_person}</p>
+                    <User className="mr-2 text-fuchsia-600" />{item.contact_person}</p>
                   <p className="flex items-start text-gray-700 ">
                     <span className="flex items-start mr-2 text-gray-400 font-semibold">
-                      <MapPin className="h-6 w-6 mt-1  text-red-600" />
+                      <MapPin className="h-6 w-6 mt-1  text-red-500" />
                     </span>
                     <span className="flex flex-col text-black">
                       {item.address} - {item.pincode}
                     </span>
                   </p>
-                  {item.email && <p className="flex items-center text-black"><Mail className="mr-2  text-red-600" /> {item.email}</p>}
-                  {item.mobile_number && <p className="flex items-center text-black"><Phone className="mr-2  text-red-600" /> {item.mobile_number}</p>}
-                  {item.whatsapp && <p className="flex items-center text-black"><FontAwesomeIcon icon={faWhatsapp} className="mr-2 h-6 w-6 text-red-600" /> {item.whatsapp}</p>}
+                  {item.email && <p className="flex items-center text-black"><Mail className="mr-2  text-cyan-300" /> {item.email}</p>}
+                  {item.mobile_number && <p className="flex items-center text-black"><Phone className="mr-2  text-blue-600" /> {item.mobile_number}</p>}
+                  {item.whatsapp && <p className="flex items-center text-black"><FontAwesomeIcon icon={faWhatsapp} className="mr-2 h-6 w-6 text-green-600" /> {item.whatsapp}</p>}
                   {/* <p className="flex items-center"><div className="mr-2 text-gray-400" /> {item.} (Alternate)</p> */}
                 </div>
               </div>

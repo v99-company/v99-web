@@ -85,29 +85,40 @@ const AddClient = () => {
   const form = useForm<z.infer<typeof formSchema>>({
     resolver: zodResolver(formSchema),
     mode: "onSubmit",
-      // defaultValues: {
-      //   id: "",
-      //   company_name: "A1 kitchens",
-      //   description: "A1 kitches Manufacturer & Supplier Stainless Steel Commercial Kitchen Equipments and Streets Food Counters as per Customers Requirements Stainless Steel Commercial Refrigeration and Drinking Water Cooler Dispensers, Chillers/Freezers, Deep Freezers.",
-      //   full_description: "The raw material required in manufacturing these products are procured from trustworthy vendors in the market. Apart from this, the offered range is widely recommended for its features like excellent finishing, long service life, and sturdy construction.We, A1 Kitchen from 2018 are prominent manufacturers and traders of high-quality Kitchen Equipment and Display Counter. Offered products range consists of Commercial Kitchen Equipment, Mortuary Box, Water Cooler, etc",
-      //   address: "8-4-122/21, Palace View Colony, East Bandlaguda Hyderabad - 500005, Telangana, India",
-      //   city: "Hyderabad",
-      //   state: "Telangana", 
-      //   pincode: "500005",
-      //   contact_person: "Mohammed Azeem",
-      //   email: "info@a1kitchens.com",
-      //   mobile_number: "8046031195",  
-      //   whatsapp: "8046031195",
-      //   gmap: "",
-      //   yt_video: "",
-      //   logo: "",
-      //   images: "",
-      //   youtube: "",
-      //   instagram: "",
-      //   facebook: "",
-      //   twitter: "",
-      // }
+      defaultValues: {
+        id: "",
+        company_name: "A1 kitchen",
+        description: "A1 kitches Manufacturer & Supplier Stainless Steel Commercial Kitchen Equipments and Streets Food Counters as per Customers Requirements Stainless Steel Commercial Refrigeration and Drinking Water Cooler Dispensers, Chillers/Freezers, Deep Freezers.",
+        full_description: "The raw material required in manufacturing these products are procured from trustworthy vendors in the market. Apart from this, the offered range is widely recommended for its features like excellent finishing, long service life, and sturdy construction.We, A1 Kitchen from 2018 are prominent manufacturers and traders of high-quality Kitchen Equipment and Display Counter. Offered products range consists of Commercial Kitchen Equipment, Mortuary Box, Water Cooler, etc",
+        address: "8-4-122/21, Palace View Colony, East Bandlaguda Hyderabad - 500005, Telangana, India",
+        city: "Hyderabad",
+        state: "Telangana", 
+        pincode: "500005",
+        contact_person: "Mohammed Azeem",
+        email: "info@a1kitchens.com",
+        mobile_number: "8046031195",  
+        whatsapp: "8046031195",
+        gmap: "",
+        yt_video: "",
+        logo: "",
+        images: "",
+        youtube: "",
+        instagram: "",
+        facebook: "",
+        twitter: "",
+      }
   });
+
+  const { control, watch, setValue } = form;
+
+  const [isSuccess, setIsSuccess] = useState(false);
+  const [successMessage, setSuccessMessage] = useState("");
+  
+  const companyName = watch("company_name");
+  const city = watch("city");
+  const state = watch("state");
+  const flogo = watch("logo");
+  const mobile_number = watch("mobile_number");
 
   useEffect(() => {
     const token = localStorage.getItem("loginToken");
@@ -115,10 +126,6 @@ const AddClient = () => {
       navigate.push("/admin");
     }
   }, []);
-
-  useEffect(() => {
-    console.log("isEdit", isEdit);
-  }, [isEdit]);
 
   async function fetchClientByID(cylinderId: string) {
     try {
@@ -140,6 +147,22 @@ const AddClient = () => {
     }
   }
 
+  const fetchMaxId = async() => {
+    try {
+      const result = await fetch(`/api/admin/clients/id/`);
+      
+      if (!result.ok) throw new Error("Failed to get client max id");
+      
+      const data = await result.json();
+      
+      if (data.data.status != "success") return;
+      const id = data.data.max_id;
+      setValue("id", `${id}`);
+    } catch (error) {
+      console.error("Error getting max id:", error);
+    }
+  }
+
   useEffect(() => {
     // Get the current URL
     const urlParams = new URLSearchParams(window.location.search);
@@ -151,6 +174,9 @@ const AddClient = () => {
       } catch (error) {
         console.error("Error parsing data:", error);
       }
+    }else{
+      // Fetch the max ID    
+      fetchMaxId();
     }
   }, []);
 
@@ -161,7 +187,7 @@ const AddClient = () => {
           console.log("Client: ", client);
           setIsEdit(true);
           // Update form fields with parsed data
-          // form.setValue("id", client.id ? `${client.id}` : "0");
+          form.setValue("id", client.id ? `${client.id}` : "0");
           form.setValue("company_name", client.company_name ?? "");
           form.setValue("description", client.description ?? "");
           form.setValue("full_description", client.full_description ?? "");
@@ -178,9 +204,6 @@ const AddClient = () => {
           form.setValue("instagram", client.instagram ?? "");
           form.setValue("facebook", client.facebook ?? "");
           form.setValue("twitter", client.twitter ?? "");
-
-          console.log("Client: ", client);
-          console.log("Images: ", client.images);
 
           setEmbedLink(client.gmap);
           setYtVideoId(
@@ -260,28 +283,12 @@ const AddClient = () => {
     }
   }, [images])
 
-  const [isSuccess, setIsSuccess] = useState(false);
-  const [successMessage, setSuccessMessage] = useState("");
-  const { control, watch, setValue } = form;
-  const companyName = watch("company_name");
-  const city = watch("city");
-  const state = watch("state");
-  const flogo = watch("logo");
-  const mobile_number = watch("mobile_number");
-
-useEffect(() => {
-  console.log("F Logo: ", flogo);
-}, [flogo])
 
   async function onSubmit(data: z.infer<typeof formSchema>) {
     const {logo, ...values} = data;
     console.log("Submit values: ", values);
 
     const token = localStorage.getItem("loginToken");
-
-    console.log("LOGO: ", logo);
-    console.log("LOGO field: ", flogo);
-    
     
     const payload = {
       ...values,
@@ -302,7 +309,6 @@ useEffect(() => {
       const updatePayload: any = {
         ...client,
         ...payload,
-        id: `${client?.id}`,
         logo: logoUrl
       };
       try {
@@ -339,27 +345,44 @@ useEffect(() => {
         if (!result.ok) throw new Error("Failed to submit client data");
 
         const data = await result.json();
-        console.log("Response:", data.data);
         setSuccessMessage("Client added successfully!");
         setIsSuccess(true);
       } catch (error) {
         console.error("Error submitting data:", error);
       }
     }
-}
-
-
-  const checkId = (id: any) => {
+  }
+  
+  
+  const checkId = async(id: string) => {
     if (id.length < 5) return;
 
-    if (id == '12345') {
-      console.log("id equal to 5 : true");
+    if (id === `${client?.id}`) {
       setIdValid(true);
-   
-    } else {
-      console.log("id equal to 5 : false");
-      setIdValid(false);
+      return;
     }
+
+    const token = localStorage.getItem("loginToken");
+
+    try {
+      const result = await fetch(`/api/admin/clients/check/${id}`, {
+        method: "GET",
+        headers: {
+          Authorization: `Bearer ${token}`
+        }
+      }
+      );
+      
+      if (!result.ok) throw new Error("Failed to get client id availability");
+      
+      const data = await result.json();
+      if (data.data.status != "success") return;
+      const availability = data.data.available;
+      setIdValid(availability);
+    } catch (error) {
+      console.error("Error checking id:", error);
+    }
+
   };
 
   useEffect(() => {
@@ -416,10 +439,9 @@ useEffect(() => {
                   <h3 className="text-lg font-semibold">Company Information</h3>
                   <div className="grid grid-cols-1 gap-6 md:grid-cols-2 lg:grid-cols-3">
                     {/* Id */}
-                    {/* <FormField
+                    <FormField
                       control={form.control}
                       name="id"
-                      disabled={true}
                       defaultValue={defaultVal}
                       render={({ field }) => (
                         <FormItem>
@@ -438,7 +460,7 @@ useEffect(() => {
                               />
 
                               {id && (
-                                <div className="absolute right-3 top-2 ">
+                                <div className="absolute right-3 top-2 cursor-pointer" onClick={() => checkId(id)}>
                                   {idValid ? (
                                     <Check className="text-green-500" />
                                   ) : (
@@ -451,7 +473,7 @@ useEffect(() => {
                           <FormMessage />
                         </FormItem>
                       )}
-                    /> */}
+                    />
                     {/* Company Name */}
                     <FormField
                       control={form.control}
@@ -956,7 +978,6 @@ useEffect(() => {
                               {/* Show existing images */}
                               {images.length > 0 && images.map((image, index) => (
                                 <div className="flex-1" key={index}>
-                                  <h2>{image}</h2>
                                   <FileHandler
                                     isEdit={isEdit}
                                     label={"Upload Images"}

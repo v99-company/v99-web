@@ -10,6 +10,7 @@ export interface Offer {
     updated_at: string;
   }
 export interface Client {
+    uid:number;
     id: number;
     email: string;
     company_name: string;

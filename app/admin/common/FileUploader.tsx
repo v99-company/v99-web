@@ -5,6 +5,7 @@ import { Button } from "@/components/ui/button"
 import { Input } from "@/components/ui/input"
 import { Upload, X, Check, ImageIcon } from 'lucide-react'
 import Image from "next/image"
+import { Progress } from "@/components/ui/progress"
 
 interface FileUploaderProps {
   onFileUpload: (data: string[] | null) => void;
@@ -17,6 +18,8 @@ export function FileUploader({ onFileUpload, label, correspondantFileType, isMul
   const [selectedFiles, setSelectedFiles] = useState<File[]>([])
   const [previewUrls, setPreviewUrls] = useState<string[]>([])
   const [uploadedFiles, setUploadedFiles] = useState<{ name: string; url: string }[]>([])
+  const [uploadProgress, setUploadProgress] = useState<number>(0)
+  const [isUploading, setIsUploading] = useState(false)
 
   const handleFileSelect = useCallback((file: File) => {
     setUploadedFiles([]); // Reset uploaded files
@@ -29,54 +32,64 @@ export function FileUploader({ onFileUpload, label, correspondantFileType, isMul
     reader.readAsDataURL(file);
   }, [isMultiple]);
 
+
   const handleFileUpload = useCallback(async () => {
     if (selectedFiles.length === 0) return
-  
+    
+    setIsUploading(true)
+    setUploadProgress(0)
+    
     const formData = new FormData()
-    selectedFiles.forEach((file) => formData.append("file[]", file)); // Use "file[]" for multiple files
+    selectedFiles.forEach((file) => formData.append("file[]", file))
   
     try {
-      const token = localStorage.getItem("loginToken");
-      const response = await fetch("/api/file", {
-        method: "POST",
-        body: formData,
-        headers: {
-          'Authorization': `Bearer ${token}`,
-        },
-      })
-  
-      if (response.ok) {
-        const data = await response.json()
-        console.log("Files uploaded successfully:", data)
-  
-        
-        const filePaths = data.map((file: { file_name: string }) =>
-          file.file_name.replace("../", "")
-      );
-
-      const uploadedFileData = data.map((file: { file_name: string; file_path: string }) => ({
-        name: file.file_name,
-        url: file.file_path.replace("../", ""), // Clean the file path
-      }));
-  
-      console.log("Files uploaded successfully:", uploadedFileData);
-  
-      // Update the uploadedFiles state
-      setUploadedFiles((prev) => [...prev, ...uploadedFileData]);
-
-      console.log("Clean file paths:", filePaths);
-        setUploadedFiles(filePaths)
-  
-        onFileUpload(filePaths)
-        setSelectedFiles([])
-        setPreviewUrls([])
-      } else {
-        console.error("File upload failed")
+      const token = localStorage.getItem("loginToken")
+      
+      const xhr = new XMLHttpRequest()
+      xhr.upload.onprogress = (event) => {
+        if (event.lengthComputable) {
+          const progress = (event.loaded / event.total) * 100
+          setUploadProgress(progress)
+        }
       }
+ 
+      xhr.onload = async () => {
+        if (xhr.status === 200) {
+          const data = JSON.parse(xhr.responseText)
+          const filePaths = data.map((file: { file_name: string }) =>
+            file.file_name.replace("../", "")
+          )
+ 
+          const uploadedFileData = data.map((file: { file_name: string; file_path: string }) => ({
+            name: file.file_name,
+            url: file.file_path.replace("../", ""),
+          }))
+ 
+          setUploadedFiles((prev) => [...prev, ...uploadedFileData])
+          onFileUpload(filePaths)
+          setSelectedFiles([])
+          setPreviewUrls([])
+        }
+        setIsUploading(false)
+        setUploadProgress(0)
+      }
+ 
+      xhr.onerror = () => {
+        console.error("Upload failed")
+        setIsUploading(false)
+        setUploadProgress(0)
+      }
+ 
+      xhr.open("POST", "/api/file")
+      xhr.setRequestHeader("Authorization", `Bearer ${token}`)
+      xhr.send(formData)
+      
     } catch (error) {
       console.error("Error uploading files:", error)
+      setIsUploading(false)
+      setUploadProgress(0)
     }
-  }, [selectedFiles, onFileUpload, correspondantFileType])
+  }, [selectedFiles, onFileUpload])
   
 
   const handleDelete = useCallback((fileToDelete: File, index: number) => {
@@ -189,6 +202,14 @@ export function FileUploader({ onFileUpload, label, correspondantFileType, isMul
           </span>
         </div>
       )}
+
+      {isUploading && (
+       <div className="w-full max-w-xs mx-2">
+         <Progress value={uploadProgress} className="w-full" />
+         <p className="text-sm text-gray-500 mt-1">Uploading: {Math.round(uploadProgress)}%</p>
+       </div>
+      )}
+
     </div>
   );
 }

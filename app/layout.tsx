@@ -13,7 +13,7 @@ const geistMono = Geist_Mono({
 });
 
 export const metadata: Metadata = {
-  title: "V99",
+  title: "V99 Nearby Locator",
   description: "Create your online presence with V99",
 };
 
