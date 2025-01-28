@@ -2,7 +2,6 @@
 
 import { LayoutDashboard, UsersRound } from "lucide-react";
 
-import { Card, CardContent, CardHeader, CardTitle } from "@/components/ui/card";
 import { useEffect, useState } from "react";
 import Navbar from "./common/Navbar";
 import { useRouter } from "next/navigation";
@@ -10,12 +9,6 @@ import { Button } from "@/components/ui/button";
 import Link from "next/link";
 
 const Dashboard = () => {
-  const [metrics, setMetrics] = useState({
-    cylinders: 0,
-    distributors: 0,
-    dealers: 0,
-    customers: 0
-  });
 
   const [isLoggedIn, setIsLoggedIn] = useState(false);
 
@@ -28,23 +21,6 @@ const Dashboard = () => {
     }
   }, []);
 
-  useEffect(() => {
-    const fetchMetrics = async () => {
-      try {
-        const response = await fetch(`api/dashboard/counts/`);
-        if (!response.ok) {
-          throw new Error("Failed to fetch counts");
-        }
-        const data = await response.json();
-        console.log("Counts: ", data.data);
-        setMetrics(data.data);
-      } catch (error) {
-        console.error("Error fetching counts:", error);
-      }
-    };
-
-    // fetchMetrics();
-  }, []);
 
   const router = useRouter();
 
@@ -54,7 +30,7 @@ const Dashboard = () => {
 
   const handleLogout = ()=>{
     localStorage.clear()
-    router.push("/admin")
+    window.location.reload()
   }
 
   return (
