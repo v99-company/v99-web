@@ -54,7 +54,7 @@ const Dashboard = () => {
 
   const handleLogout = ()=>{
     localStorage.clear()
-    router.push("/")
+    router.push("/admin")
   }
 
   return (
