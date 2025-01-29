@@ -61,18 +61,32 @@ export default function DetailsPage() {
       <main className="container mx-auto px-4 pt-4 pb-8">
         <div className="bg-white shadow-lg rounded-lg overflow-hidden h-full">
           {/* Header Image */}
+
           <div className="relative h-64 md:h-[480px]">
-            <Image
-              src={item.logo}
-              alt={item.company_name}
-              layout="fill"
-              objectFit="fill"
-              unoptimized
-            />
-            <div className="absolute inset-0 bg-black/30 flex items-center justify-center">
-              <h1 className="text-4xl md:text-5xl font-bold text-white text-center px-8 text-shadow-lg">{item.company_name}</h1>
-            </div>
-          </div>
+  <div className="flex h-full">
+    {/* Left Column: Image */}
+    <div className="w-1/3 flex-shrink-0 relative overflow-hidden bg-gray-200 items-start justify-start"> 
+      <Image
+        src={item.logo}
+        alt={item.company_name}
+        layout="fill"
+        objectFit="contain"
+        unoptimized
+      />
+    </div>
+
+    {/* Right Column: Text Content */}
+    <div className="flex-1 bg-gray-200 flex items-center justify-center p-4 md:p-8 text-gray-900">
+      <div className="text-center md:text-left">
+        <h1 className="text-4xl md:text-5xl font-bold mb-4">{item.company_name}</h1>
+        <p className="text-lg md:text-xl text-gray-600">
+          {item.description}
+        </p>
+      </div>
+    </div>
+  </div>
+</div>
+
 
           <div className="flex flex-col md:flex-row">
             {/* First Column */}
@@ -254,3 +268,5 @@ export default function DetailsPage() {
     </div>
   )
 }
+
+// test

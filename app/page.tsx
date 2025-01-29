@@ -1,8 +1,6 @@
 "use client";
 import { Suspense, useEffect, useRef, useState } from "react";
 
-import { motion } from "framer-motion";
-import { useSearchParams } from "next/navigation";
 import { HERO_SECTION_VIDEO } from "./utils/strings";
 import Navbar from "./common/Navbar";
 import Hero from "./common/Hero";

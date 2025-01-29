@@ -23,7 +23,7 @@ import {
   CardHeader,
   CardTitle
 } from "@/components/ui/card";
-import { Calendar, Check, ListOrdered, Text } from "lucide-react";
+import { Calendar, Check, ListOrdered, Text, X } from "lucide-react";
 import { Client } from "@/app/utils/interfaces";
 import { Textarea } from "@/components/ui/textarea";
 import { FileUploader } from "../common/FileUploader";
@@ -464,7 +464,7 @@ const AddClient = () => {
                                   {idValid ? (
                                     <Check className="text-green-500" />
                                   ) : (
-                                    <Check className="text-red-500" />
+                                    <X className="text-red-500" />
                                   )}
                                 </div>
                               )}
@@ -1068,3 +1068,6 @@ const AddClient = () => {
   );
 };
 export default AddClient;
+
+
+// test

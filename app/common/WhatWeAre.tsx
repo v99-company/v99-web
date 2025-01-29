@@ -1,5 +1,6 @@
 import React from 'react';
 import { motion } from 'framer-motion';
+import Link from 'next/link';
 
 const WhatWeAre = () => {
   return (
@@ -9,8 +10,8 @@ const WhatWeAre = () => {
       <div className="lg:w-[80%] w-full text-center py-4 space-y-4">
         <h2 className="text-xl md:text-2xl font-bold text-gray-700">What We Are</h2>
         <h2 className="text-md md:text-xl text-gray-500">
-          V99 Nearby Locator is a Business Listing Locatin Finder, and Web Page Provider to Show Business Information for Multi-Brands,
-           Multi-Categories Various Service to Show Website Style Web Pages and Can Put Classified Ads on this Platform</h2>
+          V99 Nearby Locator is a Business Listing Location Finder, and Web Page Provider to Show Business Information for Multi-Brands,
+           Multi-Categories Various Service to Show Website Style Your Own Web Pages and Can Put Classified Ads on this Platform Like <Link href="/12345" className="text-blue-600 font-bold">V99.in/12345</Link> </h2>
       </div>
       </header>
 
