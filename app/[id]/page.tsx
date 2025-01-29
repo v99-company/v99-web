@@ -62,24 +62,26 @@ export default function DetailsPage() {
         <div className="bg-white shadow-lg rounded-lg overflow-hidden h-full">
           {/* Header Image */}
 
-          <div className="relative h-64 md:h-[480px]">
-  <div className="flex h-full">
-    {/* Left Column: Image */}
-    <div className="w-1/3 flex-shrink-0 relative overflow-hidden bg-gray-200 items-start justify-start"> 
+          <div className="relative h-auto md:h-[480px]">
+  <div className="flex flex-col md:flex-row h-full">
+    {/* Image on Top (Mobile) / Left (Desktop) */}
+    <div className="w-full md:w-1/3 flex-shrink-0 relative bg-gray-200 flex items-center justify-center ">
       <Image
         src={item.logo}
         alt={item.company_name}
-        layout="fill"
+        layout="contain"
+        width={400}
+        height={400}
         objectFit="contain"
         unoptimized
       />
     </div>
 
-    {/* Right Column: Text Content */}
-    <div className="flex-1 bg-gray-200 flex items-center justify-center p-4 md:p-8 text-gray-900">
+    {/* Text Content Below (Mobile) / Right (Desktop) */}
+    <div className="w-full md:flex-1 bg-gray-200 flex items-center justify-center p-4 md:p-8 text-gray-900">
       <div className="text-center md:text-left">
-        <h1 className="text-4xl md:text-5xl font-bold mb-4">{item.company_name}</h1>
-        <p className="text-lg md:text-xl text-gray-600">
+        <h1 className="text-2xl md:text-5xl font-bold mb-4">{item.company_name}</h1>
+        <p className="text-md md:text-xl text-gray-600">
           {item.description}
         </p>
       </div>
@@ -269,4 +271,4 @@ export default function DetailsPage() {
   )
 }
 
-// test
+// test 1
