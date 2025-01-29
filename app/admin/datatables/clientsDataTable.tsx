@@ -191,7 +191,7 @@ export function ClientDataTable<TData extends Client, TValue>({
     event.preventDefault();
 
     console.log("Add Client Button Clicked");
-    const url = "/admin/clients/addClient";
+    const url = "/admin/addClient";
     window.open(url, '_blank'); // Opens the link in a new tab
 };
 

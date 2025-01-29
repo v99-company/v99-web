@@ -26,11 +26,11 @@ import {
 import { Calendar, Check, ListOrdered, Text } from "lucide-react";
 import { Client } from "@/app/utils/interfaces";
 import { Textarea } from "@/components/ui/textarea";
-import { FileUploader } from "../../common/FileUploader";
-import { EditPreview } from "../../common/EditPreview";
+import { FileUploader } from "../common/FileUploader";
+import { EditPreview } from "../common/EditPreview";
 import { IMAGE_FILES_URL } from "@/app/utils/strings";
-import { FileHandler } from "../../common/FileHandler";
-import { SuccessPage } from "../../common/SuccessPage";
+import { FileHandler } from "../common/FileHandler";
+import { SuccessPage } from "../common/SuccessPage";
 import { statesAndCities } from "@/app/utils/places";
 // import { format } from "date-fns";
 
