@@ -85,7 +85,7 @@ const Page: React.FC = () => {
   const handleEdit = (data:Client) => {
     const filteredClients = data
     const url = `/admin/clients/addClient?clientId=${filteredClients.id}`;
-    window.open(url, '_blank');
+    window.open(url);
   };
 
   const handleRemove = async (payload: Client) => {

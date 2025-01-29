@@ -183,7 +183,7 @@ export function ClientDataTable<TData extends Client, TValue>({
   const handleRowClick = (row: any) => {
     console.log('clicked client ID: ', row.original.id);
     const clientId = row.original.id;
-    window.open(`/${clientId}`, '_blank'); // Opens the link in a new tab
+    window.open(`/${clientId}`); // Opens the link in a new tab
   };
   
   const onAddClient = (event: React.MouseEvent<HTMLButtonElement>) => {
