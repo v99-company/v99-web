@@ -9,7 +9,6 @@ export async function GET(req:Request){
       return NextResponse.json({message:'clients ids not found'}, {status:404})
     }
     const data = await response.json()
-    console.log("Clients Data in API: ", data);
     return NextResponse.json({data:data},{status:200})
   } catch (error: any) {
     return NextResponse.json({error:error.message},{status:500})
