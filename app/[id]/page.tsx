@@ -64,16 +64,30 @@ export default function DetailsPage() {
 
           <div className="relative h-auto md:h-[480px]">
   <div className="flex flex-col md:flex-row h-full">
-    {/* Image on Top (Mobile) / Left (Desktop) */}
-    <div className="w-full md:w-1/3 flex-shrink-0 relative bg-gray-200 flex items-center justify-center" style={{ height: '100%' }}>
+    {/* Image on Top (Mobile) */}
+    <div className="w-full relative bg-gray-200 flex items-center justify-center md:hidden"> {/* Hide on medium and above screens */}
       <Image
         src={item.logo}
         alt={item.company_name}
-        layout="fill" // Use 'fill' to cover the entire container
-        objectFit="contain" // Maintain aspect ratio without cropping
+        layout="responsive"
+        width={400}
+        height={400}
+        objectFit="contain"
         unoptimized
       />
     </div>
+
+    {/* Image on Left (Desktop) */}
+    <div className="w-full md:w-1/3 flex-shrink-0 relative bg-gray-200 hidden md:flex items-center justify-center"> {/* Show only on medium and above screens */}
+      <Image
+        src={item.logo}
+        alt={item.company_name}
+        layout="fill"
+        objectFit="contain"
+        unoptimized
+      />
+    </div>
+
     {/* Text Content Below (Mobile) / Right (Desktop) */}
     <div className="w-full md:flex-1 bg-gray-200 flex items-center justify-center p-4 md:p-8 text-gray-900" style={{ height: '100%' }}>
       <div className="text-center md:text-left" style={{ height: '100%', display: 'flex', flexDirection: 'column', justifyContent: 'center' }}>
@@ -268,4 +282,4 @@ export default function DetailsPage() {
   )
 }
 
-// test 3
+// test 4
