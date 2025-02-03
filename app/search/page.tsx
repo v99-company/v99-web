@@ -26,7 +26,6 @@ const SearchView: React.FC = () => {
   }, [initialSearchTerm]);
 
   return (
-    <Suspense fallback={<div>Loading...</div>}>
     <div className="min-h-screen bg-gray-100">
       <div className="sticky top-0 z-50 bg-white shadow">
         <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 pt-4 flex items-start">
@@ -49,13 +48,17 @@ const SearchView: React.FC = () => {
 
       </div>
 
-
       <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 pb-8">
         <ClientList searchTerm={searchTerm}/>
       </div>
     </div>
-    </Suspense>
   );
 };
 
-export default SearchView;
+const WrappedSearchView = () => (
+  <Suspense fallback={<div>Loading...</div>}>
+    <SearchView />
+  </Suspense>
+);
+
+export default WrappedSearchView;
