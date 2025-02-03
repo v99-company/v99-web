@@ -20,7 +20,7 @@ export default function Navbar({ className  = "bg-white", showSearch = false, sh
   const handleSearch = (searchTerm: string) => {
     if (searchTerm.trim()) {
       // router.push(`/main?search=${encodeURIComponent(searchTerm)}`)
-      router.push(`/?search=${encodeURIComponent(searchTerm)}`)
+      router.push(`/search?search=${encodeURIComponent(searchTerm)}`)
     }
   }
 
@@ -51,7 +51,7 @@ export default function Navbar({ className  = "bg-white", showSearch = false, sh
         {/* Search bar - visible when showSearch is true */}
         {showSearch && (
           <div className="flex-grow mx-4">
-            <SearchFilters placeholder="Search other businesses" onFilterChange={handleSearch} />
+            <SearchFilters placeholder="Search Other Businesses or Experts" onFilterChange={handleSearch} />
           </div>
         )}
 

@@ -32,6 +32,7 @@ import { IMAGE_FILES_URL } from "@/app/utils/strings";
 import { FileHandler } from "../common/FileHandler";
 import { SuccessPage } from "../common/SuccessPage";
 import { statesAndCities } from "@/app/utils/places";
+import GoogleMapsEmbed from "../common/GoogleMapsEmbed";
 // import { format } from "date-fns";
 
 const formSchema = z.object({
@@ -79,6 +80,7 @@ const AddClient = () => {
   const [defaultVal,setDefaultVal] = useState("");
   const [images, setImages] = useState<string []>([]);
   const [logo, setLogo] = useState<string>("");  
+  const [idError, setIdError] = useState<string>("");  
 
   const navigate = useRouter();
 
@@ -288,6 +290,14 @@ const AddClient = () => {
     const {logo, ...values} = data;
     console.log("Submit values: ", values);
 
+    checkId(id);
+
+    if (!idValid) {
+      setIdError("ID already exists");
+      window.scrollTo({ top: 0, behavior: "smooth" });
+      return;
+    }
+
     const token = localStorage.getItem("loginToken");
     
     const payload = {
@@ -326,8 +336,8 @@ const AddClient = () => {
 
         const data = await result.json();
         console.log("Update Response:", data.data);
-        setSuccessMessage("Client updated successfully!");
-        setIsSuccess(true);
+        // setSuccessMessage("Client updated successfully!");
+        // setIsSuccess(true);
       } catch (error) {
         console.error("Error update submitting data:", error);
       }
@@ -345,8 +355,8 @@ const AddClient = () => {
         if (!result.ok) throw new Error("Failed to submit client data");
 
         const data = await result.json();
-        setSuccessMessage("Client added successfully!");
-        setIsSuccess(true);
+        // setSuccessMessage("Client added successfully!");
+        // setIsSuccess(true);
       } catch (error) {
         console.error("Error submitting data:", error);
       }
@@ -379,6 +389,7 @@ const AddClient = () => {
       if (data.data.status != "success") return;
       const availability = data.data.available;
       setIdValid(availability);
+      setIdError(availability ? "" : "ID already exists");
     } catch (error) {
       console.error("Error checking id:", error);
     }
@@ -408,15 +419,18 @@ const AddClient = () => {
   };
 
   const handleYtEmbedClick = () => {
+    // Match both standard YouTube URLs and Shorts URLs
     const videoIdMatch = ytVideoLink.match(
-      /(?:https?:\/\/)?(?:www\.)?(?:youtube\.com\/(?:[^\/\n\s]+\/\S+\/|(?:v|e(?:mbed)?)\/|.*[?&]v=)|youtu\.be\/)([a-zA-Z0-9_-]{11})/
+      /(?:https?:\/\/)?(?:www\.)?(?:youtube\.com\/(?:.*[?&]v=|shorts\/)|youtu\.be\/)([a-zA-Z0-9_-]{11})/
     );
+    
     if (videoIdMatch) {
       setYtVideoId(videoIdMatch[1]);
     } else {
       setYtVideoId(""); 
     }
   };
+  
 
   return (
     <div className="m-2 bg-[#EDEAE0]">
@@ -467,6 +481,9 @@ const AddClient = () => {
                                     <X className="text-red-500" />
                                   )}
                                 </div>
+                              )}
+                              {idError && (
+                                <h3 className="text-red-500 mt-2">{idError}</h3>
                               )}
                             </div>
                           </FormControl>
@@ -750,26 +767,19 @@ const AddClient = () => {
                               </FormLabel>
                               <FormControl className="flex-1">
                                 {/* Ensure FormControl takes full width */}
-                                <Input
+                                {/* <Input
                                   placeholder="Enter Google Maps Link"
                                   {...field}
                                   value={gmapLink}
                                   onChange={(e) => setGmapLink(e.target.value)}
                                   className="w-full" // Ensure Input takes full width
-                                />
+                                /> */}
+                                <GoogleMapsEmbed setEmbedUrl={setEmbedLink} />
                               </FormControl>
                               <FormMessage />
                             </FormItem>
                           )}
                         />
-                        {/* Convert Button */}
-                        <Button
-                          type="button"
-                          onClick={handleConvertClick}
-                          className="p-2 bg-green-400 text-white rounded"
-                        >
-                          Embed
-                        </Button>
                       </div>
 
                       <div className="flex items-end justify-between flex-1 space-x-4">
@@ -818,6 +828,7 @@ const AddClient = () => {
                               style={{ border: 0 }}
                               allowFullScreen
                               loading="lazy"
+                              referrerPolicy="no-referrer-when-downgrade"
                             />
                           </div>
                         )}

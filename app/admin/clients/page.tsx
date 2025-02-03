@@ -6,9 +6,10 @@ import { Card } from '@/components/ui/card';
 import { Client } from '@/app/utils/interfaces';
 import Loading from '@/components/ui/Loading';
 import { ClientDataTable } from '../datatables/clientsDataTable';
-import Navbar from '../common/Navbar';
+import Navbar from '../common/AdminNavbar';
 import { Input } from '@/components/ui/input';
 import { Button } from '@/components/ui/button';
+import AdminNavbar from '../common/AdminNavbar';
 
 const Page: React.FC = () => {
   const [clients, setClients] = useState<Client[]>([]);
@@ -24,7 +25,7 @@ const Page: React.FC = () => {
     if (!token) {
       router.push("/admin");
     }
-  }, []);
+  }, [router]);
   
   async function fetchClientList(){
     setIsLoading(true);
@@ -61,7 +62,7 @@ const Page: React.FC = () => {
       setIsLoading(true);
       try {
         const token = localStorage.getItem("loginToken");
-        const result = await fetch(`/api/search?search=${searchQuery}`, {
+        const result = await fetch(`/api/search?query=${searchQuery}`, {
           method: 'GET',
           headers: {
             'Authorization': `Bearer ${token}`,
@@ -145,12 +146,12 @@ const Page: React.FC = () => {
   return (
       <div className="flex">
         <div className="w-screen h-screen ">
-        
+          <AdminNavbar />
           <div className="flex items-center justify-center">
             <form className="bg-[#EDEAE0] w-full p-8 flex flex-col">
               <div className="mb-7">
-                <h1 className="text-2xl text-black font-bold mb-1">Client Management</h1>
-                <h3>Manage Clients here</h3>
+                <h1 className="text-2xl text-black font-bold mb-1">Pages Management</h1>
+                <h3>Manage Pages here</h3>
               </div>
               <Card className="bg-[#dce1de] w-[100%] p-4  ">
                 {isLoading ? (

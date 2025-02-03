@@ -9,7 +9,7 @@ interface SearchFiltersProps {
     placeholder?: string;
 }
   
-const SearchFilters = ({ onFilterChange, placeholder="Search businesses and service providers nearby..." }: SearchFiltersProps) => {
+const SearchFilters = ({ onFilterChange, placeholder="Search Businesses and Service Providers Nearby..." }: SearchFiltersProps) => {
 const [searchTerm, setSearchTerm] = useState("")
 
 const handleSearch = () => {
@@ -17,12 +17,12 @@ const handleSearch = () => {
 }
 
 return (
-    <div className="w-full flex flex-col md:flex-row justify-center items-center space-y-6 md:space-y-0 md:space-x-6 pb-4 md:pb-16">
-    <div className="relative w-full mx-16">
+    <div className="w-full flex flex-col md:flex-row justify-center items-center space-y-6 md:space-y-0 md:space-x-6">
+    <div className="relative w-full md:mx-8 mx-16">
         <Input
             type="text"
             placeholder={placeholder}
-            className="w-full text-black px-4 py-6 border border-gray-300 rounded-xl pl-4 pr-12"
+            className="w-full text-black px-4 py-4 md:py-6 border border-gray-300 rounded-xl pl-4 pr-12 text-xs md:text-lg"
             value={searchTerm}
             onChange={(e) => setSearchTerm(e.target.value)}
             onKeyDown={(e) => {

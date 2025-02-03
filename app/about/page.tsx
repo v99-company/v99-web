@@ -8,7 +8,7 @@ import Navbar from '../common/Navbar'
 import TeluguDescriptionSection from '../common/TeluguDescriptionSection'
 
 export const metadata: Metadata = {
-  title: 'About Us | V99 Nearby Locator',
+  title: 'About Us | V99 Near by Locator',
   description: 'Build your brand’s online presence easily and affordably with V99.',
 }
 
@@ -58,7 +58,7 @@ const LocationCard = ({ src, title, address }: { src: string; title: string; add
 
 export default function AboutUsPage() {
   const companyInfo = {
-    name: "V99 Nearby Locator",
+    name: "V99 Near by Locator",
     phone: "8688520059",
     email: "v99india@gmail.com",
     address2: "Ayaan Kitchen B-22, Beside Metalica Steel Factory, Balanagar Industrial Area Sanathnagar, Hyderabad - 500018, Telangana, India",
@@ -91,7 +91,7 @@ export default function AboutUsPage() {
               About {companyInfo.name}
             </h1>
             <p className="text-xl md:text-2xl max-w-2xl mx-auto">
-              Build Your Brands Online Presence Easily And Affordably With V99 Nearby Locator.
+              Build Your Brands Online Presence Easily And Affordably With V99 Near by Locator.
             </p>
           </div>
         </header>
@@ -109,7 +109,7 @@ export default function AboutUsPage() {
             </CardHeader>
             <CardContent>
               <p className="text-lg text-gray-900 mb-6">
-                At {companyInfo.name}, We Are Revolutionizing The Way Local Businesses And Service Providers Connect With Their Communities. Our Platform Is Designed To Make It Easy For Users To Discover And Engage With Nearby Businesses And Service Providers In Just A Few Clicks. 
+                At {companyInfo.name}, We Are Revolutionizing The Way Local Businesses And Service Providers Connect With Their Communities. Our Platform Is Designed To Make It Easy For Users To Discover And Engage With Near by Businesses And Service Providers In Just A Few Clicks. 
                 V99—Your Online Digital Directory. V99 India Is An Online Digital Directory—A Place For Small, Medium, And Micro Business Operators, Service Providers, And Professionals To Display Their Identities Online. Mechanics, Plumbers, Electricians, Small Traders, And Professionals Like Lawyers And Document Writers Can Enroll Their Professions On ODD, A Platform That Takes You Close To Customers Who Are Looking For Any Services. V-99 Customers Can Locate You Quickly Online And Approach You Easily As We Display A Wide Range Of Products, Services, Professionals, And Catalogs Online.
                 
                 What We Do? V-99 Is An Online Digital Directory (ODD) That Aims To Publish Local Businesses, Traders, Professionals, And Service Providers Online. Customers Can Quickly Search For Services They Are Looking For By Typing Their Location And Requirements, Such As Car Mechanics Or Electricians As Keywords. V-99 Displays All The Registered Professionals Or Service Providers With Their Mobile Numbers, As We Maintain Their Complete Profiles. V-99 Is The Online Digital Directory For Local Professionals To Make Their Online Presence Easy At An Affordable Price.
@@ -131,7 +131,7 @@ export default function AboutUsPage() {
             </CardHeader>
             <CardContent className="space-y-6">
               <p>
-                Are You A Student Or Freelancer Looking For An Exciting Opportunity To Earn While Making A Difference? Join V99 Nearby Locator Today And Help Us Connect Local Businesses And Service Providers With Their Communities Across India.
+                Are You A Student Or Freelancer Looking For An Exciting Opportunity To Earn While Making A Difference? Join V99 Near by Locator Today And Help Us Connect Local Businesses And Service Providers With Their Communities Across India.
               </p>
               <p>
                 We Are Seeking Passionate Individuals Like You Who Can Help Us Onboard Local Businesses And Service Providers In All States And Union Territories:
@@ -173,7 +173,7 @@ export default function AboutUsPage() {
                 <li>West Bengal</li>
               </ul>
               <p>
-                By Joining V99 Nearby Locator, You'll Have The Chance To Earn Attractive Incentives And Build Valuable Experience. Whether You're Looking To Supplement Your Income Or Kickstart Your Career, This Is Your Opportunity To Shine.
+                By Joining V99 Near by Locator, You'll Have The Chance To Earn Attractive Incentives And Build Valuable Experience. Whether You're Looking To Supplement Your Income Or Kickstart Your Career, This Is Your Opportunity To Shine.
               </p>
               <p>
                 Ready To Make An Impact? Sign Up Now And Start Earning Today!

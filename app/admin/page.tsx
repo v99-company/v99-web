@@ -3,10 +3,11 @@
 import { LayoutDashboard, UsersRound } from "lucide-react";
 
 import { useEffect, useState } from "react";
-import Navbar from "./common/Navbar";
+import Navbar from "./common/AdminNavbar";
 import { useRouter } from "next/navigation";
 import { Button } from "@/components/ui/button";
 import Link from "next/link";
+import AdminNavbar from "./common/AdminNavbar";
 
 const Dashboard = () => {
 
@@ -35,42 +36,7 @@ const Dashboard = () => {
 
   return (
     <div className=" min-h-screen w-full ">
-
-      <header className="w-full shadow-md py-1 px-20 flex justify-between items-start">
-        <div className="relative group mr-4">
-          <button className="w-36 h-10 bg-zinc-800 flex items-center space-x-2 p-2 rounded-md cursor-pointer">
-            <LayoutDashboard className="h-5 w-5 text-white text-base" />
-            <Link href="/admin" className="text-white">
-              Dashboard
-            </Link>
-          </button>
-        </div>
-
-        {/* Center-aligned buttons */}
-        {isLoggedIn && 
-        <div className="flex items-center space-x-4">  
-          <div className="relative group">
-            <button
-              className="w-36 h-10 bg-white hover:bg-zinc-300 text-zinc-800 flex items-center space-x-2 p-2 cursor-pointer"
-              onClick={() => handleNavigation("/admin/clients")}
-            >
-              <UsersRound className="h-5 w-5 text-base" />
-              <span>Clients</span>
-            </button>
-          </div>
-        </div>
-        }
-
-        {isLoggedIn && 
-        <Button 
-          onClick={handleLogout} 
-          className="bg-transparent text-gray-500 hover:text-red-400 hover:bg-slate-300">
-          Logout
-        </Button>}
-
-      </header>
-
-
+      <AdminNavbar />
 
       <div className="flex flex-col sm:gap-4 sm:py-4 sm:pl-14">
         {isLoggedIn ? (

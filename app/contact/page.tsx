@@ -9,7 +9,7 @@ import Navbar from '../common/Navbar'
 
 const page = () => {
   const companyInfo = {
-    name: "V99 Nearby Locator",
+    name: "V99 Near by Locator",
     phone: "8688520059",
     email: "v99india@gmail.com",
     address2: "Ayaan Kitchen B-22, Beside Metalica Steel Factory, Balanagar Industrial Area Sanathnagar, Hyderabad - 500018, Telangana, India",
@@ -63,7 +63,7 @@ const page = () => {
             </CardHeader>
             <CardContent>
               <p className="text-lg text-red-800 mb-6">
-                Get in touch with us today to learn more about V99 Nearby Locator and make your own online business page.
+                Get in touch with us today to learn more about V99 Near by Locator and make your own online business page.
               </p>
               <div className="space-y-4 mb-8">
                 <div className="flex items-center space-x-4">

@@ -5,8 +5,11 @@ const baseUrl = API_BASE_URL + '/api';
 
 export async function GET(req: Request) {
   try {
+
+    console.log("$ $ ------------Search Request");
+
     const { searchParams } = new URL(req.url);
-    const search = searchParams.get('search'); // Get the search term from the query params
+    const search = searchParams.get('query'); // Get the search term from the query params
     
     if (!search) {
       return NextResponse.json({ message: 'Search term is required' }, { status: 400 });
