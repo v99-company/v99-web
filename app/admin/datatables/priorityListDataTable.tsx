@@ -244,29 +244,29 @@ export function PriorityListDataTable<TData extends Client, TValue>({
                 strategy={verticalListSortingStrategy}
               >
                 {table.getRowModel().rows.map((row) => (
-                  <DraggableTableRow 
-                      key={row.id} 
-                      row={row}
-                      onRemove={onRemove}
-                    >
-                      {row.getVisibleCells().map((cell) => (
-                        <TableCell
-                          key={cell.id}
-                          className={`truncate max-w-[200px] break-words whitespace-normal ${
-                            cell.column.id === "id" ? "underline cursor-pointer" : ""
-                          }`}
-                          onClick={() => {
-                            if (cell.column.id === "id") {
-                              handleRowClick(row);
-                            }
-                          }}
-                        >
-                          {flexRender(
-                            cell.column.columnDef.cell,
-                            cell.getContext()
-                          )}
-                        </TableCell>
-                      ))}
+                  <DraggableTableRow
+                    key={row.id}
+                    row={row}
+                    onRemove={onRemove}
+                  >
+                    {row.getVisibleCells().map((cell) => (
+                      <TableCell
+                        key={cell.id}
+                        className={`truncate max-w-[200px] break-words whitespace-normal ${
+                          cell.column.id === "id" ? "underline cursor-pointer" : ""
+                        }`}
+                        onClick={() => {
+                          if (cell.column.id === "id") {
+                            handleRowClick(row);
+                          }
+                        }}
+                      >
+                        {flexRender(
+                          cell.column.columnDef.cell,
+                          cell.getContext()
+                        )}
+                      </TableCell>
+                    ))}
                   </DraggableTableRow>
                 ))}
               </SortableContext>
@@ -276,30 +276,6 @@ export function PriorityListDataTable<TData extends Client, TValue>({
             </TableBody>
           </Table>
         </DndContext>
-      </div>
-      <div className="flex items-center justify-end space-x-2 py-4">
-        <Button
-          variant="outline"
-          size="sm"
-          onClick={(event) => {
-            event.preventDefault();
-            table.previousPage();
-          }}
-          disabled={!table.getCanPreviousPage()}
-        >
-          Previous
-        </Button>
-        <Button
-          variant="outline"
-          size="sm"
-          onClick={(event) => {
-            event.preventDefault();
-            table.nextPage();
-          }}
-          disabled={!table.getCanNextPage()}
-        >
-          Next
-        </Button>
       </div>
     </div>
   );

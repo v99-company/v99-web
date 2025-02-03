@@ -218,6 +218,8 @@ const AddClient = () => {
           form.setValue("images", list ?? "");
           setImages(client.images);
 
+          setId(client.id ? `${client.id}` : "0");
+
           if (client.logo) setIsLogoEdit(true);
 
         }
@@ -336,8 +338,8 @@ const AddClient = () => {
 
         const data = await result.json();
         console.log("Update Response:", data.data);
-        // setSuccessMessage("Client updated successfully!");
-        // setIsSuccess(true);
+        setSuccessMessage("Client updated successfully!");
+        setIsSuccess(true);
       } catch (error) {
         console.error("Error update submitting data:", error);
       }
@@ -355,8 +357,8 @@ const AddClient = () => {
         if (!result.ok) throw new Error("Failed to submit client data");
 
         const data = await result.json();
-        // setSuccessMessage("Client added successfully!");
-        // setIsSuccess(true);
+        setSuccessMessage("Client added successfully!");
+        setIsSuccess(true);
       } catch (error) {
         console.error("Error submitting data:", error);
       }

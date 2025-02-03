@@ -179,7 +179,9 @@ const Listing = () => {
         {/* Priority Clients list */}
         <div>
           <h2 className="text-2xl font-bold mb-6">Selected Pages</h2>
+          <div className="pb-32">
           <PriorityListDataTable data={priorityClients} onSave={handleSave} onRemove={handleRemove} />
+          </div>
 
         </div>
 
