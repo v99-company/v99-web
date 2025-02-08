@@ -72,8 +72,8 @@ const Page: React.FC = () => {
           console.log('Error searching');
         }
         const data = await result.json();
+        console.log("SEarch data",data)
         setClients(data.data.data);
-        console.log(data.data)
       } catch (error) {
         console.log('error', error);
       }
@@ -127,13 +127,13 @@ const Page: React.FC = () => {
   const handleSearch = (event: React.MouseEvent<HTMLButtonElement> | React.KeyboardEvent<HTMLInputElement>) => {
     // Prevent default action if this is part of a form or a keypress
     event.preventDefault();
+
+    console.log('Search initiated with:', searchValue);
   
     // Check if the event is a keypress and ensure it's the "Enter" key
     if ('key' in event && event.key !== 'Enter') {
       return; // Exit if it's not the Enter key
     }
-  
-    console.log('Search initiated with:', searchValue);
   
     search(searchValue); // Call the search function
   };
@@ -168,18 +168,19 @@ const Page: React.FC = () => {
                         onChange={(e) => setSearchValue(e.target.value)} // Update local state
                         onKeyDown={(e) => {
                           if (e.key === "Enter") {
+                            console.log("Enter key pressed");
                             handleSearch(e); // Trigger search when Enter is pressed
                           }
                         }}
                         className="max-w-lg w-60 p-1.5 pl-4 pr-3 text-zinc-600"
                         onBlur={handleInputBlur}
                       />
-                      <Button
+                      {/* <Button
                         onClick={handleSearch} // Trigger search on button click
                         className="px-4 py-2 bg-blue-500 text-white rounded-md hover:bg-blue-600"
                       >
                         Search
-                      </Button>
+                      </Button> */}
                       <Button
                         onClick={handleClear} // Trigger search on button click
                         variant="destructive"
@@ -209,4 +210,4 @@ const Page: React.FC = () => {
 
 export default Page;
 
-// test 4
+// test 5

@@ -122,6 +122,7 @@ const Listing = () => {
     console.log("Add client: ", data);
 
     const updatedPriorityClients = [...priorityClients, data];
+    console.log("Updated priority clients: ", updatedPriorityClients);
     setPriorityClients(updatedPriorityClients);
   };
 
@@ -200,12 +201,12 @@ const Listing = () => {
               className="max-w-lg w-60 p-1.5 pl-4 pr-3 text-zinc-600"
               onBlur={handleInputBlur}
             />
-            <Button
+            {/* <Button
               onClick={handleSearch} // Trigger search on button click
               className="px-4 py-2 bg-blue-500 text-white rounded-md hover:bg-blue-600"
             >
               Search
-            </Button>
+            </Button> */}
             <Button
               onClick={handleClear} // Trigger search on button click
               variant="destructive"
