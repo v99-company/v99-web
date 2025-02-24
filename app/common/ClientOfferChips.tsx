@@ -26,21 +26,11 @@ export interface ClientData {
     offers: Offer[];
   }
   
-  export interface Offer {
-    id: number;
-    client_id: number;
-    offer_title: string;
-    offer_description: string;
-    offer_type: 'announcement' | 'discount' | 'notice';
-    start_date: string;
-    end_date: string;
-    created_at: string;
-    updated_at: string;
-  }
-  
+
   // UI Component for Chips
   import React, { JSX } from 'react';
   import { FaBullhorn, FaTags, FaInfoCircle } from 'react-icons/fa';
+import { Offer } from '../utils/interfaces';
 
   interface OfferChipProps {
     offer: Offer;

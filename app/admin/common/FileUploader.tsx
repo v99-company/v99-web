@@ -142,8 +142,8 @@ export function FileUploader({ onFileUpload, label, correspondantFileType, isMul
         )}
       </div>
 
-      <div className="flex items-start justify-start space-x-4 ml-4">
-        <div className="grid grid-cols-4 gap-2">
+      <div className="w-full lg:w-[600px] flex items-start justify-start space-x-4 ml-4 ">
+        <div className="grid grid-cols-2 lg:grid-cols-4 gap-2">
         {previewUrls.map((previewUrl, index) => (
           <div key={index} className="mt-2 relative">
             <div className="relative w-32 h-32 rounded-md overflow-hidden">

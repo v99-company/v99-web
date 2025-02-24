@@ -7,6 +7,7 @@ import { Button } from "@/components/ui/button";
 import { PriorityListDataTable } from "../datatables/priorityListDataTable";
 import AdminNavbar from "../common/AdminNavbar";
 import { toast } from "@/hooks/use-toast";
+import { useRouter } from "next/navigation";
 
 const Listing = () => {
   const [clients, setClients] = useState<Client[]>([]);
@@ -14,6 +15,8 @@ const Listing = () => {
   const [filterValue, setFilterValue] = useState("");
   const [isLoading, setIsLoading] = useState(false);
   const [searchValue, setSearchValue] = useState(filterValue); // State for search input
+
+  const router = useRouter();
 
   async function search(searchQuery: string) {
     setIsLoading(true);
@@ -29,8 +32,8 @@ const Listing = () => {
         console.log("Error searching");
       }
       const data = await result.json();
+      console.log("clients data", data.data);
       setClients(data.data.data);
-      console.log(data.data);
     } catch (error) {
       console.log("error", error);
     } finally {
@@ -53,7 +56,7 @@ const Listing = () => {
         console.log("Error fetching");
       }
       const data = await result.json();
-      console.log("clients data", data.data);
+      console.log("clients data", data);
       setClients(data.data);
     } catch (error) {
       console.log("error", error);
@@ -87,6 +90,11 @@ const Listing = () => {
   }
 
   useEffect(() => {
+    const token = localStorage.getItem("loginToken");
+    if (!token) {
+      router.push("/admin/login");
+    }
+
     fetchPriorityClientList();
     fetchClientList();
   }, []);
@@ -175,7 +183,7 @@ const Listing = () => {
         <AdminNavbar />
       <h1 className="w-full text-center text-2xl font-bold py-8">Home Custom Listing</h1>
 
-      <div className="flex items-start justify-between px-64">
+      <div className="flex items-start justify-between lg:px-32">
 
         {/* Priority Clients list */}
         <div>

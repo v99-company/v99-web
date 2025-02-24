@@ -89,9 +89,11 @@ export default function DetailsPage() {
     </div>
 
     {/* Text Content Below (Mobile) / Right (Desktop) */}
-    <div className="w-full md:flex-1 bg-gray-200 flex items-center justify-center p-4 md:p-8 text-gray-900" style={{ height: '100%' }}>
-      <div className="text-center md:text-left" style={{ height: '100%', display: 'flex', flexDirection: 'column', justifyContent: 'center' }}>
-        <h1 className="text-2xl md:text-5xl font-bold mb-4">{item.company_name}</h1>
+    <div className="w-full md:flex-1 bg-gray-200 flex items-start justify-center p-4 md:p-8 text-gray-900" style={{ height: '100%' }}>
+      <div className="text-center md:text-left pt-0 lg:pt-8 pr-0 lg:pr-32" style={{display: 'flex', flexDirection: 'column', justifyContent: 'center' }}>
+      <h1 className="text-3xl md:text-5xl font-bold mb-4 bg-gradient-to-r from-blue-900 to-blue-800 bg-clip-text text-transparent">
+        {item.company_name}
+      </h1>
         <p className="text-md md:text-xl text-gray-600">
           {item.description}
         </p>
@@ -278,8 +280,22 @@ export default function DetailsPage() {
         </div>
       </main>
     )}
+      <div className="bg-blue-50 border border-blue-200 p-4 rounded-lg shadow-md text-center">
+      <h3 className="text-lg font-semibold text-blue-700">
+        Is this your business?
+      </h3>
+      <p className="text-sm text-gray-600 mt-1">
+        You can log in to update your page and manage offers.
+      </p>
+
+      <Link href="/clientLogin" className="text-blue-600 hover:underline">
+        <Button className="mt-3 text-white px-4 py-2 rounded-lg hover:bg-blue-700 transition">
+          Login to Manage
+        </Button>
+      </Link>
+    </div>
     </div>
   )
 }
 
-// test 5
+// test 6

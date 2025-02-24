@@ -8,20 +8,6 @@ const baseUrl = API_BASE_URL+'/api/admin'
 
 export async function GET(req:NextRequest){
   try {
-      const authHeader = req.headers.get('Authorization');
-  
-      if (!authHeader) {
-        return NextResponse.json({ message: "Authentication failed" }, { status: 404 });
-      }
-    
-      const token = authHeader.split(" ")[1];
-    
-      const isValid = await verifyToken(token);
-    
-      if (!isValid) {
-        return NextResponse.json({ message: "Authentication failed" }, { status: 404 });
-      }
-  
 
     const pathParts = req.nextUrl.pathname.split('/');
     const id = pathParts.pop();

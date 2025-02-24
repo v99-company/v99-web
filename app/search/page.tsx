@@ -36,7 +36,7 @@ const SearchView: React.FC = () => {
           >
             <X className="h-8 w-8 text-gray-500 hover:text-red-400" />
           </button>
-          <SearchFilters onFilterChange={(newSearchTerm: string) => setSearchTerm(newSearchTerm)} placeholder="Search Other Businesses or Experts " />
+          <SearchFilters onFilterChange={(newSearchTerm: string) => setSearchTerm(newSearchTerm)} placeholder="Search Other Businesses or Service Providers " />
         </div>
 
       {/* Search Term Heading */}

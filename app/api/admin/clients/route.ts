@@ -83,16 +83,18 @@ export async function PUT (req:Request){
 
     console.log("Response ", response.status);
 
+    const responseText = await response.text();
+    console.log("Response Text", responseText);
+
     if (!response.ok) {
         const errorText = await response.text();
         console.error("Error from update client service:", errorText);
         return NextResponse.json({ message: 'client failed to be updated' }, { status: 404 });
     }
 
-    const data = await response.json();
-    console.log("Data from updated client service:", data);
-    return NextResponse.json({ data: data }, { status: 200 });
+    return NextResponse.json({ data: responseText }, { status: 200 });
   } catch (error) {
+    console.log('error', error);
     return NextResponse.json({error:error},{status:500})
   }
 }

@@ -29,20 +29,23 @@ export default function Navbar({ className  = "bg-white", showSearch = false, sh
       <div className="w-full flex items-center justify-between">
         {/* Logo - always visible */}
         <Link href="/" className="flex-shrink-0">
-          <Image src="/v99logo.png" alt="Logo" width={100} height={100} className={`rounded-md ${showLogo ? "" : "hidden"}`} />
+          <Image src="/v99logo.png" alt="Logo" width={120} height={120} className={`rounded-md ${showLogo ? "" : "hidden"}`} />
         </Link>
 
         {/* Navigation links - visible on larger screens when not searching */}
         {!showSearch && (
           <div className="hidden md:flex items-center space-x-4 font-semibold text-lg">
             {/* <Link href="/add-business" className="hover:underline px-3 rounded-md"> */}
-            <Link href="/contact" className="hover:underline px-3 rounded-md">
+            <Link href="/Contact" className="hover:underline px-3 rounded-md">
               Add Your Business
             </Link>
             <Link href="/about" className="hover:underline px-3 rounded-md">
               About
             </Link>
-            <Link href="/contact" className="hover:underline px-3 rounded-md">
+            <Link href="/FAQ" className="hover:underline px-3 rounded-md">
+              FAQ
+            </Link>
+            <Link href="/Contact" className="hover:underline px-3 rounded-md">
               Contact
             </Link>
           </div>
@@ -51,7 +54,7 @@ export default function Navbar({ className  = "bg-white", showSearch = false, sh
         {/* Search bar - visible when showSearch is true */}
         {showSearch && (
           <div className="flex-grow mx-4">
-            <SearchFilters placeholder="Search Other Businesses or Experts" onFilterChange={handleSearch} />
+            <SearchFilters placeholder="Search Other Businesses or Service Providers" onFilterChange={handleSearch} />
           </div>
         )}
 
@@ -82,7 +85,7 @@ export default function Navbar({ className  = "bg-white", showSearch = false, sh
           <div className="flex flex-col items-center space-y-2 font-semibold">
             <Link
               // href="/add-business"
-              href="/contact"
+              href="/Contact"
               onClick={handleLinkClick}
               className="hover:underline block px-3 py-2 rounded-md text-base w-full text-center"
             >
@@ -96,7 +99,14 @@ export default function Navbar({ className  = "bg-white", showSearch = false, sh
               About
             </Link>
             <Link
-              href="/contact"
+              href="/FAQ"
+              onClick={handleLinkClick}
+              className="hover:underline block px-3 py-2 rounded-md text-base w-full text-center"
+            >
+              FAQ
+            </Link>
+            <Link
+              href="/Contact"
               onClick={handleLinkClick}
               className="hover:underline block px-3 py-2 rounded-md text-base w-full text-center"
             >

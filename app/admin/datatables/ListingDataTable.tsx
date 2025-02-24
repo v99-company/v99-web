@@ -141,8 +141,13 @@ export function ListingDataTable<TData extends Client, TValue>({
     state: {
       sorting,
       columnFilters,
-      columnVisibility
-    }
+      columnVisibility,
+    },
+    initialState: {
+      pagination: {
+        pageSize: 30,
+      },
+    },
   });
 
   useEffect(() => {
@@ -170,10 +175,11 @@ export function ListingDataTable<TData extends Client, TValue>({
   };
 
   return (
-    <div className="container px-auto overflow-x-auto ">
+    <div className="container px-auto overflow-x-auto">
       <div className="mt-4 relative">
         <Table className="min-w-full">
           <TableHeader>
+          <div className="grid grid-cols-2 gap-4">
             {table.getHeaderGroups().map((headerGroup) => (
               <TableRow key={headerGroup.id}>
                 {headerGroup.headers.map((header) => {
@@ -196,8 +202,10 @@ export function ListingDataTable<TData extends Client, TValue>({
                 })}
               </TableRow>
             ))}
+            </div>
           </TableHeader>
           <TableBody className="h-auto">
+          <div className="grid grid-cols-2 gap-4">
             {table.getRowModel().rows.map((row) => (
               <TableRow
                 key={row.id}
@@ -230,6 +238,7 @@ export function ListingDataTable<TData extends Client, TValue>({
                 })}
               </TableRow>
             ))}
+            </div>
 
             {table.getRowModel().rows.length === 0 && (
               <NoTableData colSpan={columns.length} />
@@ -269,28 +278,22 @@ export function ListingDataTable<TData extends Client, TValue>({
           </DropdownMenuContent>
         </DropdownMenu>
 
-        <Button
-          variant="outline"
-          size="sm"
-          onClick={(event) => {
-            event.preventDefault();
-            table.previousPage();
-          }}
-          disabled={!table.getCanPreviousPage()}
-        >
-          Previous
-        </Button>
-        <Button
-          variant="outline"
-          size="sm"
-          onClick={(event) => {
-            event.preventDefault();
-            table.nextPage();
-          }}
-          disabled={!table.getCanNextPage()}
-        >
-          Next
-        </Button>
+        <div className="flex-1 text-sm text-muted-foreground">
+          Page {table.getState().pagination.pageIndex + 1} of {table.getPageCount()}
+        </div>
+        <div className="flex items-center space-x-2">
+          <Button
+            variant="outline"
+            size="sm"
+            onClick={() => table.previousPage()}
+            disabled={!table.getCanPreviousPage()}
+          >
+            Previous
+          </Button>
+          <Button variant="outline" size="sm" onClick={() => table.nextPage()} disabled={!table.getCanNextPage()}>
+            Next
+          </Button>
+        </div>
       </div>
     </div>
   );

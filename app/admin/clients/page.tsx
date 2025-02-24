@@ -10,6 +10,7 @@ import Navbar from '../common/AdminNavbar';
 import { Input } from '@/components/ui/input';
 import { Button } from '@/components/ui/button';
 import AdminNavbar from '../common/AdminNavbar';
+import { checkUserPermission } from '../RBAC';
 
 const Page: React.FC = () => {
   const [clients, setClients] = useState<Client[]>([]);
@@ -52,7 +53,6 @@ const Page: React.FC = () => {
     }
   }
   useEffect(()=>{
-    
     fetchClientList();
 
   }, []);
@@ -210,4 +210,4 @@ const Page: React.FC = () => {
 
 export default Page;
 
-// test 5
+// test 6

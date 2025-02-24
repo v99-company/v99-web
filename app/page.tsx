@@ -6,6 +6,7 @@ import Hero from "./common/Hero";
 import WhatWeAre from "./common/WhatWeAre";
 import ClientList from "./common/ClientsList";
 import { HERO_SECTION_VIDEO } from "./utils/strings";
+import Footer from "./common/Footer";
 
 const MainView: React.FC = () => {
   const videoRef = useRef<HTMLVideoElement>(null);
@@ -52,6 +53,9 @@ const MainView: React.FC = () => {
           <ClientList searchTerm="" />
         </div>
       </div>
+
+      {/* Footer */}
+      <Footer />
     </div>
   );
 };

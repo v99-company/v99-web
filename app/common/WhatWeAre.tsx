@@ -6,12 +6,12 @@ const WhatWeAre = () => {
   return (
     <section className='pt-4 pb-8'>
       {/* Heading */}
-      <header className='w-full flex flex-col items-center justify-center'>
+      <header className='w-full flex flex-col items-center justify-center px-4'>
       <div className="lg:w-[80%] w-full text-center py-4 space-y-4">
         <h2 className="text-xl md:text-2xl font-bold text-gray-700">What We Are</h2>
         <h2 className="text-md md:text-xl text-gray-500">
           V99 Near by Locator is a Business Listing Location Finder, and Web Page Provider to Show Business Information for Multi-Brands,
-           Multi-Categories Various Service to Show Website Style Your Own Web Pages and Can Put Classified Ads on this Platform Like <Link href="/12345" className="text-blue-600 font-bold">V99.in/12345</Link> </h2>
+           Multi-Categories Various Service to Show Website Style Your Own Web Pages and Can Put Classified Ads on this Platform Like <Link href="/12345" className="text-blue-600 font-bold hover:underline">V99.in/12345</Link> </h2>
       </div>
       </header>
 

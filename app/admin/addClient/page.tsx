@@ -23,7 +23,7 @@ import {
   CardHeader,
   CardTitle
 } from "@/components/ui/card";
-import { Calendar, Check, ListOrdered, Text, X } from "lucide-react";
+import { ArrowLeft, Calendar, Check, ListOrdered, Text, X } from "lucide-react";
 import { Client } from "@/app/utils/interfaces";
 import { Textarea } from "@/components/ui/textarea";
 import { FileUploader } from "../common/FileUploader";
@@ -33,6 +33,7 @@ import { FileHandler } from "../common/FileHandler";
 import { SuccessPage } from "../common/SuccessPage";
 import { statesAndCities } from "@/app/utils/places";
 import GoogleMapsEmbed from "../common/GoogleMapsEmbed";
+import { checkUserPermission, verifyPermission } from "../RBAC";
 // import { format } from "date-fns";
 
 const formSchema = z.object({
@@ -82,32 +83,146 @@ const AddClient = () => {
   const [logo, setLogo] = useState<string>("");  
   const [idError, setIdError] = useState<string>("");  
 
-  const navigate = useRouter();
+  const router = useRouter(); // Initialize the router
+  const [userRole, setUserRole] = useState<string | null>(null);
+  const [hasAccess, setHasAccess] = useState(false); // To track access permission
+  const [clientId, setClientId] = useState<string | null>(null); // To store the clientId from URL
+
+  const [loadingLocation, setLoadingLocation] = useState(false);
+
+
+  // useEffect(() => {
+  //   // Decode the token to get the user's role
+  //   const token = localStorage.getItem('loginToken');
+  //   if (token) {
+  //     try {
+  //       const decodedToken = JSON.parse(atob(token.split('.')[1])); // Decode JWT token
+  //       const role = decodedToken.role || null;
+  //       console.log("Decoded Token: ", decodedToken);
+  //       setUserRole(role);
+
+  //       // Get the current URL parameters
+  //       const urlParams = new URLSearchParams(window.location.search);
+  //       const clientIdFromUrl = urlParams.get("clientId");
+  //       // Determine access based on clientId and permissions
+  //       let userhasPermission = false;
+
+  //       if (clientIdFromUrl){
+  //         userhasPermission = checkUserPermission('update_page')
+  //       }else{
+  //         userhasPermission = checkUserPermission('create_page')
+  //       }
+
+  //       // Update access state
+  //       setHasAccess(userhasPermission);
+
+  //       // Redirect back if no permission
+  //       if (!userhasPermission) {
+  //         router.push("/admin/clients")
+  //         alert("You Don't have Permission")
+  //       }
+  //     } catch (error) {
+  //       console.error("Invalid token:", error);
+  //       setUserRole(null);
+  //       setHasAccess(false);
+  //       router.push("/admin/clients"); // Redirect back if token is invalid
+  //     }
+  //   } else {
+  //     setUserRole(null);
+  //     setHasAccess(false);
+  //     router.push("/admin/clients") // Redirect back if no token is found
+  //   }
+  // }, [router]); // Dependency on router ensures it runs after router is initialized
+
+  useEffect(() => {
+    const tokens = {
+      admin: localStorage.getItem("loginToken"),
+      client: localStorage.getItem("clientLoginToken"),
+      freelancer: localStorage.getItem("freelancerLoginToken"),
+    };
+  
+    let userRole: "admin" | "client" | "freelancer" | null = null;
+    let decodedToken = null;
+    
+    let foundToken = undefined;
+    // Check which token is available
+    for (const [role, token] of Object.entries(tokens)) {
+      if (token) {
+        try {
+          foundToken = token;
+          decodedToken = JSON.parse(atob(token.split(".")[1])); // Decode JWT
+          userRole = role as "admin" | "client" | "freelancer";
+          console.log("Decoded Token:", decodedToken);
+          break; // Stop checking after finding the valid token
+        } catch (error) {
+          console.error(`Invalid ${role} token:`, error);
+        }
+      }
+    }
+
+    console.log("User Role: ", userRole);
+  
+    // If no valid token is found, redirect the user to their respective login page
+    if (!userRole) {
+      console.warn("No valid login token found. Redirecting...");
+      router.push("/login"); // You can customize this if needed
+      return;
+    }
+  
+    setUserRole(userRole);
+  
+    // Get the current URL parameters
+    const urlParams = new URLSearchParams(window.location.search);
+    const clientIdFromUrl = urlParams.get("clientId");
+  
+    // Determine access based on clientId and permissions
+    let userHasPermission = false;
+  
+    if (clientIdFromUrl) {
+      userHasPermission = checkUserPermission("update_page", foundToken);
+    } else {
+      userHasPermission = checkUserPermission("create_page", foundToken);
+      console.log("userHasPermission",userHasPermission);
+    }
+  
+    setHasAccess(userHasPermission);
+  
+    // Redirect back if the user doesn't have permission
+    if (!userHasPermission) {
+      alert("You don't have permission to access this page.");
+      
+      if (userRole === "admin") router.push("/admin/clients");
+      else if (userRole === "client") router.push("/clientLogin");
+      else if (userRole === "freelancer") router.push("/freelancerLogin");
+    }
+  }, [router]); // Dependency on router ensures it runs when routing changes
+  
+
 
   const form = useForm<z.infer<typeof formSchema>>({
     resolver: zodResolver(formSchema),
     mode: "onSubmit",
       defaultValues: {
-        // id: "",
-        // company_name: "A1 kitchen",
-        // description: "A1 kitches Manufacturer & Supplier Stainless Steel Commercial Kitchen Equipments and Streets Food Counters as per Customers Requirements Stainless Steel Commercial Refrigeration and Drinking Water Cooler Dispensers, Chillers/Freezers, Deep Freezers.",
-        // full_description: "The raw material required in manufacturing these products are procured from trustworthy vendors in the market. Apart from this, the offered range is widely recommended for its features like excellent finishing, long service life, and sturdy construction.We, A1 Kitchen from 2018 are prominent manufacturers and traders of high-quality Kitchen Equipment and Display Counter. Offered products range consists of Commercial Kitchen Equipment, Mortuary Box, Water Cooler, etc",
-        // address: "8-4-122/21, Palace View Colony, East Bandlaguda Hyderabad - 500005, Telangana, India",
-        // city: "Hyderabad",
-        // state: "Telangana", 
-        // pincode: "500005",
-        // contact_person: "Mohammed Azeem",
-        // email: "info@a1kitchens.com",
-        // mobile_number: "8046031195",  
-        // whatsapp: "8046031195",
-        // gmap: "",
-        // yt_video: "",
-        // logo: "",
-        // images: "",
-        // youtube: "",
-        // instagram: "",
-        // facebook: "",
-        // twitter: "",
+        id: "93111",
+        company_name: "A1 kitchen",
+        description: "A1 kitches Manufacturer & Supplier Stainless Steel Commercial Kitchen Equipments and Streets Food Counters as per Customers Requirements Stainless Steel Commercial Refrigeration and Drinking Water Cooler Dispensers, Chillers/Freezers, Deep Freezers.",
+        full_description: "The raw material required in manufacturing these products are procured from trustworthy vendors in the market. Apart from this, the offered range is widely recommended for its features like excellent finishing, long service life, and sturdy construction.We, A1 Kitchen from 2018 are prominent manufacturers and traders of high-quality Kitchen Equipment and Display Counter. Offered products range consists of Commercial Kitchen Equipment, Mortuary Box, Water Cooler, etc",
+        address: "8-4-122/21, Palace View Colony, East Bandlaguda Hyderabad - 500005, Telangana, India",
+        city: "Hyderabad",
+        state: "Telangana", 
+        pincode: "500005",
+        contact_person: "Mohammed Azeem",
+        email: "info@a1kitchens.com",
+        mobile_number: "8046031195",  
+        whatsapp: "8046031195",
+        gmap: "",
+        yt_video: "",
+        logo: "",
+        images: "",
+        youtube: "",
+        instagram: "",
+        facebook: "",
+        twitter: "",
       }
   });
 
@@ -122,18 +237,18 @@ const AddClient = () => {
   const flogo = watch("logo");
   const mobile_number = watch("mobile_number");
 
-  useEffect(() => {
-    const token = localStorage.getItem("loginToken");
-    if (!token) {
-      navigate.push("/admin");
-    }
-  }, []);
+  // useEffect(() => {
+  //   const token = localStorage.getItem("loginToken");
+  //   if (!token) {
+  //     router.push("/admin");
+  //   }
+  // }, []);
 
-  async function fetchClientByID(cylinderId: string) {
+  async function fetchClientByID(clientId: string) {
     try {
-      const token = localStorage.getItem("loginToken");
+      const token = localStorage.getItem("loginToken") || localStorage.getItem("clientLoginToken");
 
-      const result = await fetch(`/api/admin/clients/${cylinderId}`, {
+      const result = await fetch(`/api/admin/clients/${clientId}`, {
         method: "GET",
         headers: {
           Authorization: `Bearer ${token}`
@@ -143,6 +258,7 @@ const AddClient = () => {
         console.log("Error fetching");
       }
       const data = await result.json();
+      console.log("data", data);
       setClient(data.data);
     } catch (error) {
       console.log("error", error);
@@ -293,27 +409,47 @@ const AddClient = () => {
     console.log("Submit values: ", values);
 
     checkId(id);
-
+    
     if (!idValid) {
       setIdError("ID already exists");
       window.scrollTo({ top: 0, behavior: "smooth" });
       return;
     }
+    
+    // const token = localStorage.getItem("loginToken") || "";
+    // const decodedToken = JSON.parse(atob(token.split('.')[1]));
 
-    const token = localStorage.getItem("loginToken");
+      // Check for tokens in order of priority
+    const adminToken = localStorage.getItem("loginToken");
+    const clientToken = localStorage.getItem("clientLoginToken");
+    const freelancerToken = localStorage.getItem("freelancerLoginToken");
+
+    let token = adminToken || clientToken || freelancerToken; // Use the first available token
+    if (!token) {
+      alert("Unauthorized: Please log in.");
+      return;
+    }
+
+    let decodedToken;
+    try {
+      decodedToken = JSON.parse(atob(token.split(".")[1])); // Decode JWT
+    } catch (error) {
+      console.error("Invalid token:", error);
+      alert("Invalid session. Please log in again.");
+      return;
+    }
     
     const payload = {
       ...values,
       yt_video: ytVideoId ? `https://www.youtube.com/embed/${ytVideoId}` : "",
       gmap: embedLink? embedLink : "",
       logo: flogo,
-      images: images.join(", ")
+      images: images.join(", "),
     };
 
     console.log("Payload: ", payload);
 
-    if (isEdit) {
-      
+    if (isEdit) {      
       const logoUrl = logo && logo.includes(IMAGE_FILES_URL) 
       ? logo 
       : `${IMAGE_FILES_URL}/${logo}`;
@@ -321,7 +457,8 @@ const AddClient = () => {
       const updatePayload: any = {
         ...client,
         ...payload,
-        logo: logoUrl
+        logo: logoUrl,
+        updated_by: decodedToken.id
       };
       try {
         console.log("on submit", JSON.stringify(updatePayload));
@@ -336,14 +473,21 @@ const AddClient = () => {
 
         if (!result.ok) throw new Error("Failed to update client data");
 
-        const data = await result.json();
-        console.log("Update Response:", data.data);
-        setSuccessMessage("Client updated successfully!");
-        setIsSuccess(true);
+        const data = await result.text();
+        console.log("Update Response:", data);
+        // setSuccessMessage("Client updated successfully!");
+        // setIsSuccess(true);
       } catch (error) {
         console.error("Error update submitting data:", error);
       }
     } else {
+
+      const createPayload = {
+        ...payload,
+        created_by: decodedToken.id,
+        creator_role: decodedToken.role
+      }
+
       try {
         const result = await fetch("/api/admin/clients/", {
           method: "POST",
@@ -351,14 +495,14 @@ const AddClient = () => {
             "Content-Type": "application/json",
             Authorization: `Bearer ${token}`
           },
-          body: JSON.stringify(payload)
+          body: JSON.stringify(createPayload)
         });
 
         if (!result.ok) throw new Error("Failed to submit client data");
 
         const data = await result.json();
-        setSuccessMessage("Client added successfully!");
-        setIsSuccess(true);
+        // setSuccessMessage("Client added successfully!");
+        // setIsSuccess(true);
       } catch (error) {
         console.error("Error submitting data:", error);
       }
@@ -374,14 +518,9 @@ const AddClient = () => {
       return;
     }
 
-    const token = localStorage.getItem("loginToken");
-
     try {
       const result = await fetch(`/api/admin/clients/check/${id}`, {
         method: "GET",
-        headers: {
-          Authorization: `Bearer ${token}`
-        }
       }
       );
       
@@ -404,21 +543,11 @@ const AddClient = () => {
 
   
   useEffect(() => {
-    // if (mobile_number && mobile_number.length >= 10) {
-    //   const lastFiveDigits = mobile_number.slice(-5);
-    //   setId(lastFiveDigits);
-    //   setDefaultVal(lastFiveDigits); 
-    //   setValue("id", lastFiveDigits); 
-    // }
     if (mobile_number){
       setValue("whatsapp", mobile_number);
     }
   }, [mobile_number, setValue]);
 
-  const handleConvertClick = () => {
-    const convertedLink = convertToEmbedLink(gmapLink);
-    setEmbedLink(convertedLink || "");
-  };
 
   const handleYtEmbedClick = () => {
     // Match both standard YouTube URLs and Shorts URLs
@@ -434,10 +563,82 @@ const AddClient = () => {
   };
   
 
+  const getLocation = () => {
+    setLoadingLocation(true);
+  
+    if (!navigator.geolocation) {
+      alert("Geolocation is not supported by your browser.");
+      setLoadingLocation(false);
+      return;
+    }
+  
+    navigator.geolocation.getCurrentPosition(
+      (position) => {
+        const latitude = position.coords.latitude.toFixed(8)
+        const longitude = position.coords.longitude.toFixed(8)
+  
+        console.log("Latitude:", latitude);
+        console.log("Longitude:", longitude);
+  
+        // `https://maps.google.com/maps?q=${latitude},${longitude}&t=&z=15&ie=UTF8&iwloc=&output=embed`
+        setEmbedLink(
+          `https://maps.google.com/maps?q=${latitude},${longitude}&t=&z=15&ie=UTF8&iwloc=&output=embed`
+
+        );
+  
+        console.log("Location captured successfully!");
+        setLoadingLocation(false);
+      },
+      (error) => {
+        let errorMessage = "Failed to get location.";
+        switch (error.code) {
+          case error.PERMISSION_DENIED:
+            errorMessage = "Permission denied. Please enable location access.";
+            break;
+          case error.POSITION_UNAVAILABLE:
+            errorMessage = "Location information is unavailable.";
+            break;
+          case error.TIMEOUT:
+            errorMessage = "Location request timed out. Try again.";
+            break;
+          default:
+            errorMessage = "An unknown error occurred.";
+        }
+        alert(errorMessage);
+        setLoadingLocation(false);
+      },
+      { enableHighAccuracy: true, timeout: 10000, maximumAge: 0 } // High accuracy & timeout settings
+    );
+  };
+
+  const handleBack = () => {
+    if (localStorage.getItem("loginToken")){
+      router.push("/admin/clients")
+    }
+    else if (localStorage.getItem("clientLoginToken")){
+      router.push("/clientManage/")
+    }else if (localStorage.getItem("freelancerLoginToken")){
+      router.push("/freelancerManage/")
+    }
+    else{
+      router.push("/")
+    }
+  };
   return (
-    <div className="m-2 bg-[#EDEAE0]">
-      <div className="flex flex-col items-center justify-center">
-        <Card className="w-full mx-4 rounded-xl border border-gray-200 bg-[#EDEAE0] p-6 shadow-lg">
+    <div className="bg-[#EDEAE0] relative ">
+    <Card className="w-full py-2 sticky top-0 bg-white shadow-md">
+    <Button
+      variant="outline"
+      className="flex items-center gap-2 ml-8 px-4 py-2 border border-gray-300 hover:bg-gray-600 transition"
+      onClick={handleBack}
+    >
+      <ArrowLeft className="w-5 h-5" />
+      Go Back 
+    </Button>
+    </Card>
+
+      <div className="w-full p-0 flex flex-col items-center justify-center">
+        <Card className="w-full rounded-xl border border-gray-200 bg-[#EDEAE0] px-0 lg:px-4 shadow-lg">
           <CardHeader className="pb-3">
             <CardTitle>{`${isEdit ? "Edit" : "Add"} Page`}</CardTitle>
             <CardDescription className="text-balance max-w-lg leading-relaxed"></CardDescription>
@@ -448,10 +649,10 @@ const AddClient = () => {
                 onSubmit={form.handleSubmit(onSubmit, (errors) => {
                   console.log("Form validation errors:", errors);
                 })}
-                className="flex flex-col space-y-8"
+                className="flex flex-col space-y-4 lg:space-y-8"
               >
                 {/* Company Information */}
-                <Card className="space-y-4 p-8 bg-[#dce1de]">
+                <Card className=" space-y-4 p-4 lg:p-8 bg-[#dce1de]">
                   <h3 className="text-lg font-semibold">Company Information</h3>
                   <div className="grid grid-cols-1 gap-6 md:grid-cols-2 lg:grid-cols-3">
                     {/* Id */}
@@ -559,7 +760,7 @@ const AddClient = () => {
                 </Card>
 
                 {/* Address Information */}
-                <Card className="space-y-4 p-8 bg-[#dce1de]">
+                <Card className="space-y-4 p-4 lg:p-8 bg-[#dce1de]">
                   <h3 className="text-lg font-semibold">Address Information</h3>
                   <div className="grid grid-cols-1 gap-6 md:grid-cols-2 lg:grid-cols-3">
                     {/* State Dropdown */}
@@ -666,7 +867,7 @@ const AddClient = () => {
                 </Card>
 
                 {/* Contact Information */}
-                <Card className="space-y-4 p-8 bg-[#dce1de]">
+                <Card className="space-y-4 p-4 lg:p-8 bg-[#dce1de]">
                   <h3 className="text-lg font-semibold">Contact Information</h3>
                   <div className="grid grid-cols-1 gap-6 md:grid-cols-2 lg:grid-cols-3">
                     {/* Contact PERSON */}
@@ -751,99 +952,87 @@ const AddClient = () => {
                 </Card>
 
                 {/* Online Presence */}
-                <Card className="space-y-4 p-8 bg-[#dce1de]">
+                <Card className="w-full space-y-4 p-4 lg:p-8 bg-[#dce1de]">
                   <h3 className="text-lg font-semibold">Online Presence</h3>
 
-                  <div className="flex items-start justify-start space-x-8">
-                    <div className="felx-1 w-full grid grid-cols-2 gap-6">
-                      <div className="flex items-end justify-between flex-1 space-x-4">
-                        {/* Google Maps Link */}
+                  <div className="w-full flex flex-col items-start justify-start space-x-8">
+                    <div className="w-full space-y-8">
+
+                    <div className="w-full flex flex-col lg:flex-row gap-4">
+                      {/* Google Maps Section */}
+                      <div className="flex flex-col flex-1 space-y-2">
                         <FormField
                           control={form.control}
                           name="gmap"
                           render={({ field }) => (
-                            <FormItem className="flex-1">
-                              {/* Make FormItem take full width */}
-                              <FormLabel className="text-black flex-1">
-                                Google Maps Link
-                              </FormLabel>
-                              <FormControl className="flex-1">
-                                {/* Ensure FormControl takes full width */}
-                                {/* <Input
-                                  placeholder="Enter Google Maps Link"
-                                  {...field}
-                                  value={gmapLink}
-                                  onChange={(e) => setGmapLink(e.target.value)}
-                                  className="w-full" // Ensure Input takes full width
-                                /> */}
-                                <GoogleMapsEmbed setEmbedUrl={setEmbedLink} />
-                              </FormControl>
-                              <FormMessage />
-                            </FormItem>
-                          )}
-                        />
-                      </div>
-
-                      <div className="flex items-end justify-between flex-1 space-x-4">
-                        {/* YouTube Videos */}
-                        <FormField
-                          control={form.control}
-                          name="yt_video"
-                          render={({ field }) => (
-                            <FormItem className="flex-1">
-                              <FormLabel className="text-black">
-                                YouTube Video Links
-                              </FormLabel>
+                            <FormItem className="w-full">
+                              <FormLabel className="text-black">Google Maps Link</FormLabel>
                               <FormControl>
-                                <Input
-                                  placeholder="Enter YouTube Video Link"
-                                  value={ytVideoLink}
-                                  onChange={(e) =>
-                                    setYtVideoLink(e.target.value)
-                                  }
-                                />
+                                <div className="flex items-center justify-start space-x-2">
+                                  <GoogleMapsEmbed setEmbedUrl={setEmbedLink} />
+                                  <Button
+                                    type="button"
+                                    onClick={getLocation}
+                                    className="bg-green-900 hover:bg-green-800 text-white py-2 px-4 rounded-lg transition-all"
+                                  >
+                                    {loadingLocation ? "Fetching Location..." : "Get Current Location"}
+                                  </Button>
+                                </div>
                               </FormControl>
                               <FormMessage />
                             </FormItem>
                           )}
                         />
-
-                        {/* Convert Button */}
-                        <Button
-                          type="button"
-                          onClick={handleYtEmbedClick}
-                          className="p-2 bg-red-400 text-white rounded"
-                        >
-                          Embed
-                        </Button>
-                      </div>
-
-                      <div className="col-span-full w-full flex-1 flex items-center justify-between">
-                        {/* Google Map Preview */}
+                        {/* Google Maps Preview */}
                         {embedLink && (
-                          <div className="">
-                            <h4 className="text-md font-semibold">Preview:</h4>
+                          <div className="w-full mt-2">
+                            <h4 className="text-md font-semibold mb-1">Google Maps Preview:</h4>
                             <iframe
                               src={embedLink}
-                              width="500"
-                              height="300"
-                              style={{ border: 0 }}
+                              className="w-full h-64 rounded-md border shadow-md"
                               allowFullScreen
                               loading="lazy"
                               referrerPolicy="no-referrer-when-downgrade"
                             />
                           </div>
                         )}
+                      </div>
 
+                      {/* YouTube Video Section */}
+                      <div className="flex flex-col flex-1 space-y-2">
+                        <FormField
+                          control={form.control}
+                          name="yt_video"
+                          render={({ field }) => (
+                            <FormItem className="w-full">
+                              <FormLabel className="text-black">YouTube Video Links</FormLabel>
+                              <FormControl>
+                                <div className="flex items-center space-x-2">
+                                  <Input
+                                    placeholder="Enter YouTube Video Link"
+                                    value={ytVideoLink}
+                                    onChange={(e) => setYtVideoLink(e.target.value)}
+                                    className="flex-1"
+                                  />
+                                  <Button
+                                    type="button"
+                                    onClick={handleYtEmbedClick}
+                                    className="p-2 bg-red-400 text-white rounded"
+                                  >
+                                    Embed
+                                  </Button>
+                                </div>
+                              </FormControl>
+                              <FormMessage />
+                            </FormItem>
+                          )}
+                        />
                         {/* YouTube Video Preview */}
                         {ytVideoId && (
-                          <div className="mt-4">
-                            <h4 className="text-md font-semibold">
-                              YouTube Video Preview:
-                            </h4>
+                          <div className="w-full mt-2">
+                            <h4 className="text-md font-semibold mb-1">YouTube Video Preview:</h4>
                             <iframe
-                              width="500"
-                              height="300"
+                              className="w-full h-64 rounded-md border shadow-md"
                               src={`https://www.youtube.com/embed/${ytVideoId}`}
                               frameBorder="0"
                               allow="accelerometer; autoplay; clipboard-write; encrypted-media; gyroscope; picture-in-picture"
@@ -852,7 +1041,10 @@ const AddClient = () => {
                           </div>
                         )}
                       </div>
+                    </div>
 
+
+                    <div className="w-full flex flex-col lg:flex-row gap-4">
                       <FormField
                         control={form.control}
                         name="youtube"
@@ -929,11 +1121,13 @@ const AddClient = () => {
                         )}
                       />
                     </div>
+
+                    </div>
                   </div>
                 </Card>
 
                 {/* Media Upload */}
-                <Card className="space-y-4 p-8 bg-[#dce1de]">
+                <Card className="space-y-4 p-4 lg:p-8 bg-[#dce1de]">
                   <h3 className="text-lg font-semibold">Media Upload</h3>
                   <div className="grid grid-cols-1 gap-6 md:grid-cols-2">
                     {/* Logo */}
@@ -1073,7 +1267,7 @@ const AddClient = () => {
         message={successMessage}
         onClose={() => {
           setIsSuccess(false);
-          navigate.push("/admin/clients");
+          router.push("/admin/clients");
         }}
       />
     )}
@@ -1083,4 +1277,4 @@ const AddClient = () => {
 export default AddClient;
 
 
-// test 5
+// test 6

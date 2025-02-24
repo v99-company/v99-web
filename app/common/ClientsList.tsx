@@ -81,11 +81,13 @@ export default function ClientList({ searchTerm }: ClientListProps) {
           ) : (
             <>
               <List items={searchList} />
-              <Pagination
+
+              <div className='h-16'></div>
+              {/* <Pagination
                 currentPage={currentPage}
                 totalPages={totalPages}
                 onPageChange={handlePageChange}
-              />
+              /> */}
             </>
           )}
         </div>

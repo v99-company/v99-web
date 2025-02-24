@@ -176,22 +176,30 @@ export function PriorityListDataTable<TData extends Client, TValue>({
     []
   );
 
+  console.log("PRiority table data: ", tableData);
+
   const table = useReactTable({
     data: tableData,
     columns,
     getCoreRowModel: getCoreRowModel(),
-    getPaginationRowModel: getPaginationRowModel(),
+    // getPaginationRowModel: getPaginationRowModel(),
     getFilteredRowModel: getFilteredRowModel(),
     getSortedRowModel: getSortedRowModel(),
     onSortingChange: setSorting,
     onColumnFiltersChange: setColumnFilters,
     onColumnVisibilityChange: setColumnVisibility,
+    rowCount: tableData.length,
     state: {
       sorting,
       columnFilters,
-      columnVisibility
+      columnVisibility,
+      pagination: {
+        pageIndex: 0, // Always start from the first page
+        pageSize: tableData.length // Show all rows
+      }
     }
   });
+
 
   useEffect(() => {
     setTableData(data);

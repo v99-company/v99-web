@@ -14,7 +14,7 @@ const geistMono = Geist_Mono({
 
 export const metadata: Metadata = {
   title: "V99 Near by Locator",
-  description: "Create your online presence with V99",
+  description: "Create your online presence with V99 Near by Locator",
 };
 
 export default function RootLayout({

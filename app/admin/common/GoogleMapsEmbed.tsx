@@ -61,12 +61,12 @@ export default function GoogleMapsEmbed({ setEmbedUrl }: GoogleMapsEmbedProps) {
   };
 
   return (
-    <div className='relative'>
+    <div className='relative flex-1 lg:flex hidden'>
       <div className='flex items-center justify-center space-x-4'>
         <Input
           placeholder="Enter Google Maps Link or iframe code"
           onChange={handleInputChange}
-          className="w-full" // Ensure Input takes full width
+          className="w-[400px]" // Ensure Input takes full width
         />
         {/* <Button type='button' onClick={handleButtonClick}>
           <MapPin className='h-5 w-5' />

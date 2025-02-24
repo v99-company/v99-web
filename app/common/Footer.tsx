@@ -1,46 +1,57 @@
-import { faWhatsapp } from '@fortawesome/free-brands-svg-icons';
-import { FontAwesomeIcon } from '@fortawesome/react-fontawesome'
+import { Button } from '@/components/ui/button';
 import Link from 'next/link'
 import React from 'react'
 
-function Footer() {
+const Footer = () => {
   return (
-    <footer className="bg-gray-800 text-white py-4 mt-8">
-  <div className="flex flex-col md:flex-row items-center justify-between px-4">
-        {/* Footer Left Section */}
-        <div className="flex items-center space-x-2">
-      Developed By 
-      <Link 
-        href="https://primeintech.com" 
-        target="_blank" 
-        className="text-blue-400 hover:text-blue-300 transition duration-200 px-1"
-      >
-        PrimeInTech Team
-      </Link>
-    </div>
+    <footer className="bg-gray-800 text-white">
 
-    <p className="text-center text-sm md:text-left">
-      &copy; {new Date().getFullYear()} V99 Near by Locator. All rights reserved.
-    </p>
+      {/* Top row with links and copyright */}
+      <div className="container mx-auto px-4 py-6 border-b border-gray-700">
+        <div className="flex flex-col sm:flex-row items-center justify-between gap-4">
+          <p className="text-sm font-bold">
+            &copy; {new Date().getFullYear()} V99 Near by Locator. All rights reserved.
+          </p>
+          <Link 
+              href="/freelancerLogin" 
+              className="text-sm  transition duration-200"
+            >
+              <Button className='bg-green-300 text-black'>Freelancer Login</Button>
 
-    <Link
-      href={`https://wa.me/+919704271714?text=${encodeURIComponent(
-        "Hello PrimeInTech Team,\nI visited V99 website and would like to inquire. Could you please provide more details or guide me on how to proceed?\nThank you!"
-      )}`}
-      target="_blank"
-      rel="noopener noreferrer"
-      className="flex items-center text-gray-300 font-semibold hover:text-green-400 transition duration-200 text-sm md:text-md"
-    >
-      <FontAwesomeIcon
-        icon={faWhatsapp}
-        className="mr-2 h-5 w-5 text-green-500"
-      />
-      <span>WhatsApp for Website/App Development & SEO</span>
-    </Link>
-  </div>
-</footer>
+              
+            </Link>
+          <div className="flex items-center gap-4 font-bold">
+            <Link 
+              href="/Policy" 
+              className="text-sm hover:text-blue-400 transition duration-200"
+            >
+              Terms & Privacy
+            </Link>
+            <Link 
+              href="/Contact" 
+              className="text-sm hover:text-blue-400 transition duration-200"
+            >
+              Contact
+            </Link>
+          </div>
+        </div>
+      </div>
 
-  )
-}
+      {/* Bottom row with developer credits */}
+      <div className="container mx-auto px-4 py-4">
+        <div className="flex items-center justify-center text-xs text-gray-400">
+          Designed & Developed by{' '}
+          <Link
+            href="https://primeintech.com"
+            target="_blank"
+            className="text-blue-400 hover:text-blue-300 transition duration-200 ml-1"
+          >
+            PrimeInTech Team
+          </Link>
+        </div>
+      </div>
+    </footer>
+  );
+};
 
-export default Footer
+export default Footer;
