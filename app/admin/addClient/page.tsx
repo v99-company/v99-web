@@ -424,7 +424,7 @@ const AddClient = () => {
     const clientToken = localStorage.getItem("clientLoginToken");
     const freelancerToken = localStorage.getItem("freelancerLoginToken");
 
-    let token = adminToken || clientToken || freelancerToken; // Use the first available token
+    const token = adminToken || clientToken || freelancerToken; // Use the first available token
     if (!token) {
       alert("Unauthorized: Please log in.");
       return;
@@ -475,8 +475,8 @@ const AddClient = () => {
 
         const data = await result.text();
         console.log("Update Response:", data);
-        // setSuccessMessage("Client updated successfully!");
-        // setIsSuccess(true);
+        setSuccessMessage("Page updated successfully!");
+        setIsSuccess(true);
       } catch (error) {
         console.error("Error update submitting data:", error);
       }
@@ -501,8 +501,8 @@ const AddClient = () => {
         if (!result.ok) throw new Error("Failed to submit client data");
 
         const data = await result.json();
-        // setSuccessMessage("Client added successfully!");
-        // setIsSuccess(true);
+        setSuccessMessage("Page added successfully!");
+        setIsSuccess(true);
       } catch (error) {
         console.error("Error submitting data:", error);
       }
